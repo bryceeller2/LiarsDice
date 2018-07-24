@@ -5,7 +5,7 @@
  */
 package liarsdice;
 
-import LiarsDicePackage.LiarsDiceJframe;
+//import LiarsDicePackage.LiarsDiceJframe;
 
 /**
  *
@@ -43,7 +43,16 @@ public class LiarsDice {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LiarsDiceJframe().setVisible(true);
+                System.out.println("Program Running");
+                gameState state = new gameState();
+
+                                
+                LiarsDiceJframe screen = new LiarsDiceJframe();
+                screen.setState(state);
+                screen.setVisible(true);
+                
+                
+                
             }
         });
     }

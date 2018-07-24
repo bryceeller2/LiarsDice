@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package LiarsDicePackage;
+package liarsdice;
 import java.io.*;
 import java.util.*;
 import java.util.Random;
@@ -14,6 +14,7 @@ import java.util.Random;
  */
 public class LiarsDiceJframe extends javax.swing.JFrame {
 
+    gameState state;
     /**
      * Creates new form LiarsDiceJframe
      */
@@ -31,59 +32,86 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        testlabel = new javax.swing.JLabel();
+        cpuContainer = new javax.swing.JPanel();
+        cpuPanel1 = new javax.swing.JPanel();
+        cpuCup1 = new javax.swing.JLabel();
+        cpuPanel2 = new javax.swing.JPanel();
+        cpuCup2 = new javax.swing.JLabel();
+        cpuPanel3 = new javax.swing.JPanel();
+        cpuCup3 = new javax.swing.JLabel();
+        playerDicePanel = new javax.swing.JPanel();
         die1 = new javax.swing.JLabel();
         die2 = new javax.swing.JLabel();
         die3 = new javax.swing.JLabel();
         die4 = new javax.swing.JLabel();
         die5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        playerControlPanel = new javax.swing.JPanel();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
-        jSlider1 = new javax.swing.JSlider();
+        betSlider = new javax.swing.JSlider();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        testlabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        testlabel.setText("Liars Dice");
+        getContentPane().add(testlabel);
 
-        jLabel2.setText("Click this box ->");
-        jPanel1.add(jLabel2, java.awt.BorderLayout.PAGE_START);
+        cpuContainer.setLayout(new java.awt.BorderLayout());
 
-        getContentPane().add(jPanel1);
+        cpuPanel1.setLayout(new javax.swing.BoxLayout(cpuPanel1, javax.swing.BoxLayout.X_AXIS));
 
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+        cpuCup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
+        cpuPanel1.add(cpuCup1);
+
+        cpuContainer.add(cpuPanel1, java.awt.BorderLayout.WEST);
+
+        cpuPanel2.setLayout(new javax.swing.BoxLayout(cpuPanel2, javax.swing.BoxLayout.Y_AXIS));
+
+        cpuCup2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
+        cpuCup2.setAlignmentX(0.5F);
+        cpuPanel2.add(cpuCup2);
+
+        cpuContainer.add(cpuPanel2, java.awt.BorderLayout.NORTH);
+
+        cpuPanel3.setLayout(new javax.swing.BoxLayout(cpuPanel3, javax.swing.BoxLayout.X_AXIS));
+
+        cpuCup3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
+        cpuPanel3.add(cpuCup3);
+
+        cpuContainer.add(cpuPanel3, java.awt.BorderLayout.EAST);
+
+        getContentPane().add(cpuContainer);
+
+        playerDicePanel.setLayout(new javax.swing.BoxLayout(playerDicePanel, javax.swing.BoxLayout.LINE_AXIS));
 
         die1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel3.add(die1);
+        playerDicePanel.add(die1);
 
         die2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel3.add(die2);
+        playerDicePanel.add(die2);
 
         die3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel3.add(die3);
+        playerDicePanel.add(die3);
 
         die4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel3.add(die4);
+        playerDicePanel.add(die4);
 
         die5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel3.add(die5);
+        playerDicePanel.add(die5);
 
-        getContentPane().add(jPanel3);
+        getContentPane().add(playerDicePanel);
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Two's");
@@ -105,11 +133,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton6);
         jRadioButton6.setText("Six's");
 
-        jSlider1.setMajorTickSpacing(5);
-        jSlider1.setMaximum(20);
-        jSlider1.setMinorTickSpacing(1);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
+        betSlider.setMajorTickSpacing(5);
+        betSlider.setMaximum(20);
+        betSlider.setMinorTickSpacing(1);
+        betSlider.setPaintLabels(true);
+        betSlider.setPaintTicks(true);
 
         jButton2.setText("Call Lie");
 
@@ -120,14 +148,14 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout playerControlPanelLayout = new javax.swing.GroupLayout(playerControlPanel);
+        playerControlPanel.setLayout(playerControlPanelLayout);
+        playerControlPanelLayout.setHorizontalGroup(
+            playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(playerControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(playerControlPanelLayout.createSequentialGroup()
                         .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,18 +165,18 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                         .addComponent(jRadioButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        playerControlPanelLayout.setVerticalGroup(
+            playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playerControlPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton2)
                     .addComponent(jRadioButton3)
                     .addComponent(jRadioButton4)
@@ -156,20 +184,22 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                     .addComponent(jRadioButton6)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSlider1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel2);
-
-        testlabel.setText("Liars Dice");
-        getContentPane().add(testlabel);
+        getContentPane().add(playerControlPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void setState(gameState a){
+        state = a;
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ArrayList<String> images = new ArrayList<String>(
         Arrays.asList("/d1.png", "/d2.png", "/d3.png", "/d4.png", "/d5.png", "/d6.png"));
@@ -181,9 +211,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             int dval = gen.nextInt(6);
             die.setIcon(new javax.swing.ImageIcon(getClass().getResource(images.get(dval))));
         }
-        
-        
-        
+                
+        System.out.println(state.getDice());
 
         testlabel.setText("pooop");
         
@@ -195,7 +224,15 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSlider betSlider;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JPanel cpuContainer;
+    private javax.swing.JLabel cpuCup1;
+    private javax.swing.JLabel cpuCup2;
+    private javax.swing.JLabel cpuCup3;
+    private javax.swing.JPanel cpuPanel1;
+    private javax.swing.JPanel cpuPanel2;
+    private javax.swing.JPanel cpuPanel3;
     private javax.swing.JLabel die1;
     private javax.swing.JLabel die2;
     private javax.swing.JLabel die3;
@@ -203,16 +240,13 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel die5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JSlider jSlider1;
+    private javax.swing.JPanel playerControlPanel;
+    private javax.swing.JPanel playerDicePanel;
     private javax.swing.JLabel testlabel;
     // End of variables declaration//GEN-END:variables
 }
