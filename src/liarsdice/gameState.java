@@ -40,10 +40,22 @@ public class gameState {
                 totalDice+=player.getDiceCount();
             }
         }
-        
+    }
+    
+    public void updateBet(int count, int value){
+        currentCall[0]=count;
+        currentCall[1]=value;
     }
     
     public int getDice(){
         return totalDice;
+    }
+    
+    public int getBetCount(){
+        return currentCall[0];
+    }
+    
+    public int getBetValue(){
+        return currentCall[1];
     }
 }
