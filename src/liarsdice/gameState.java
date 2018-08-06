@@ -14,7 +14,7 @@ import java.util.Random;
 public class gameState {
     
     ArrayList<Player> players;    
-    Integer[] currentCall;
+    Integer[] currentCall = new Integer[2];
     int nextPlayer;
     int totalDice;
     

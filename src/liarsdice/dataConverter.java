@@ -17,27 +17,26 @@ public class dataConverter {
         
         String value = getSelectedButtonText(group);
         Integer n=0;
-        switch(value){
-            case "Two's":
-                n = 2;
-                break;
-            case "Three's":
-                n = 3;
-                break;
-            case "Four's":
-                n = 4;
-                break;
-            case "Five's":
-                n = 5;
-                break;
-            case "Six's":
-                n = 6;
-                break;
+        if (value != null){
+            switch(value){
+                case "Two's":
+                    n = 2;
+                    break;
+                case "Three's":
+                    n = 3;
+                    break;
+                case "Four's":
+                    n = 4;
+                    break;
+                case "Five's":
+                    n = 5;
+                    break;
+                case "Six's":
+                    n = 6;
+                    break;
+            }
         }
-        if (n==0){
-            System.out.println("Button text not recognized: " +value);
-            throw new NullPointerException("Button text not recognized: " +value);
-        }
+        
             
         return n;
     }

@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package liarsdice;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.*;
 import java.util.*;
 import java.util.Random;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -47,11 +50,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         die4 = new javax.swing.JLabel();
         die5 = new javax.swing.JLabel();
         playerControlPanel = new javax.swing.JPanel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        radio2 = new javax.swing.JRadioButton();
+        radio3 = new javax.swing.JRadioButton();
+        radio4 = new javax.swing.JRadioButton();
+        radio5 = new javax.swing.JRadioButton();
+        radio6 = new javax.swing.JRadioButton();
         betSlider = new javax.swing.JSlider();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -113,31 +116,36 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         getContentPane().add(playerDicePanel);
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Two's");
+        buttonGroup1.add(radio2);
+        radio2.setText("Two's");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Three's");
+        buttonGroup1.add(radio3);
+        radio3.setText("Three's");
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setText("Four's");
+        buttonGroup1.add(radio4);
+        radio4.setText("Four's");
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setText("Five's");
-        jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(radio5);
+        radio5.setText("Five's");
+        radio5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton5ActionPerformed(evt);
+                radio5ActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setText("Six's");
+        buttonGroup1.add(radio6);
+        radio6.setText("Six's");
 
         betSlider.setMajorTickSpacing(5);
         betSlider.setMaximum(20);
         betSlider.setMinorTickSpacing(1);
         betSlider.setPaintLabels(true);
         betSlider.setPaintTicks(true);
+        betSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                betSliderStateChanged(evt);
+            }
+        });
 
         jButton2.setText("Call Lie");
 
@@ -156,15 +164,15 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(playerControlPanelLayout.createSequentialGroup()
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(radio2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(radio3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(radio4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(radio5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(radio6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +185,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playerControlPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton6)
+                    .addComponent(radio2)
+                    .addComponent(radio3)
+                    .addComponent(radio4)
+                    .addComponent(radio5)
+                    .addComponent(radio6)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -200,27 +208,91 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         state = a;
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    public void updateBetLimits(int count, int value){
+        betSlider.setMinimum(count);
+    }
+        
+    public javax.swing.ImageIcon rollDie(){
         ArrayList<String> images = new ArrayList<String>(
         Arrays.asList("/d1.png", "/d2.png", "/d3.png", "/d4.png", "/d5.png", "/d6.png"));
-        ArrayList<javax.swing.JLabel> dice = new ArrayList<>(
-        Arrays.asList(die1, die2, die3, die4, die5));
+        
+        
+                    
         Random gen = new Random();
+        int dval = gen.nextInt(6);
+        return(new javax.swing.ImageIcon(getClass().getResource(images.get(dval))));
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        ArrayList<javax.swing.JLabel> dice = new ArrayList<>(
+            Arrays.asList(die1, die2, die3, die4, die5));
+        ArrayList<javax.swing.JRadioButton> radioButtons = new ArrayList<>(
+            Arrays.asList(radio2,radio3,radio4,radio5,radio6));
+        
+        Font clickmeFont=new Font("Tahoma",Font.BOLD,radio2.getFont().getSize());
+        Font defaultFont=new Font("Tahoma",Font.PLAIN,11);
         
         for (javax.swing.JLabel die : dice){
-            int dval = gen.nextInt(6);
-            die.setIcon(new javax.swing.ImageIcon(getClass().getResource(images.get(dval))));
+            die.setIcon(rollDie());
         }
-                
-        System.out.println(state.getDice());
+        
+        int betValue = dataConverter.getCountFromButton(buttonGroup1);
+        
+        if (betValue == 0){
+            for(JRadioButton b : radioButtons){
+                b.setFont(clickmeFont);
+                b.setForeground(Color.red);
+            }
+        }
+        
+        else{
+            int betCount = betSlider.getValue();
+            
+            System.out.println("total dice: " +state.getDice());
+            System.out.println("betCount: " +betCount);
+            System.out.println("betValue: " +betValue);
 
-        testlabel.setText("pooop");
+            state.updateBet(betCount, betValue);
+            updateBetLimits(betCount, betValue);
+            for(JRadioButton b : radioButtons){
+                b.setFont(defaultFont);
+                b.setForeground(Color.black);
+            }
+        }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jRadioButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton5ActionPerformed
+    private void radio5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5ActionPerformed
+    }//GEN-LAST:event_radio5ActionPerformed
+
+    private void betSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_betSliderStateChanged
+        
+        int value = betSlider.getValue();
+        ArrayList<javax.swing.JRadioButton> radioButtons = new ArrayList<>(
+        Arrays.asList(radio2,radio3,radio4,radio5,radio6));
+        if (state.getBetCount() == value){
+            
+            int i=2;
+            for (javax.swing.JRadioButton button : radioButtons){
+                if (i <= state.getBetValue()){
+                    button.getModel().setEnabled(false);
+                    buttonGroup1.clearSelection();
+                }
+                else{
+                    button.getModel().setEnabled(true);
+                }
+                i++;
+            }
+        }
+        else{
+            for (javax.swing.JRadioButton button : radioButtons){
+                 button.getModel().setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_betSliderStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -240,13 +312,13 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel die5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JPanel playerControlPanel;
     private javax.swing.JPanel playerDicePanel;
+    private javax.swing.JRadioButton radio2;
+    private javax.swing.JRadioButton radio3;
+    private javax.swing.JRadioButton radio4;
+    private javax.swing.JRadioButton radio5;
+    private javax.swing.JRadioButton radio6;
     private javax.swing.JLabel testlabel;
     // End of variables declaration//GEN-END:variables
 }
