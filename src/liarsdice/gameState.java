@@ -52,10 +52,45 @@ public class gameState {
     }
     
     public int getBetCount(){
-        return currentCall[0];
+        if (currentCall[0] != null)
+           return currentCall[0];
+        else
+            return 0;
     }
     
     public int getBetValue(){
         return currentCall[1];
+    }
+    
+    public int getNextPlayer(){
+        return nextPlayer;
+    }
+    
+    public int[] getPlayerBet(int playerNum){
+        int[] bet = new int[2];
+        
+        Player activePlayer=players.get(playerNum);
+        bet = activePlayer.bet(getBetCount(), getBetValue());
+        
+        return bet;
+    }
+    
+    public void iteratePlayer(){
+        nextPlayer++;
+        if (nextPlayer>3){
+            nextPlayer=0;
+        }        
+        if (players.get(nextPlayer).getActive() == false){
+            nextPlayer++;
+        }
+        if (nextPlayer>3){
+            nextPlayer=0;
+        }
+        if (players.get(nextPlayer).getActive() == false){
+            nextPlayer++;
+        }  
+        if (nextPlayer>3){
+            nextPlayer=0;
+        } 
     }
 }

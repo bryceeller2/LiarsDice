@@ -49,4 +49,22 @@ public class Player {
     public void kill(){
         active=false;
     }
+    
+    public int[] bet(int betCount, int betValue){
+        int[] bet = new int[2];
+        int myValue=0;
+        int myCount=0;
+        
+        if (betValue==6){
+            myCount=betCount+1;
+            myValue=2;
+        }
+        else{
+            myCount=betCount;
+            myValue=betValue+1;
+        }
+        bet[0]=myCount;
+        bet[1]=myValue;
+        return bet;
+    }
 }

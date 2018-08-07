@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.*;
 import java.util.Random;
 import javax.swing.JRadioButton;
+import java.util.Timer;
 
 /**
  *
@@ -39,9 +40,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuContainer = new javax.swing.JPanel();
         cpuPanel1 = new javax.swing.JPanel();
         cpuCup1 = new javax.swing.JLabel();
+        cpuBet1 = new javax.swing.JLabel();
         cpuPanel2 = new javax.swing.JPanel();
         cpuCup2 = new javax.swing.JLabel();
+        cpuBet2 = new javax.swing.JLabel();
         cpuPanel3 = new javax.swing.JPanel();
+        cpuBet3 = new javax.swing.JLabel();
         cpuCup3 = new javax.swing.JLabel();
         playerDicePanel = new javax.swing.JPanel();
         die1 = new javax.swing.JLabel();
@@ -56,8 +60,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         radio5 = new javax.swing.JRadioButton();
         radio6 = new javax.swing.JRadioButton();
         betSlider = new javax.swing.JSlider();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        lieButton = new javax.swing.JButton();
+        betButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
@@ -73,6 +77,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuCup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
         cpuPanel1.add(cpuCup1);
 
+        cpuBet1.setText("No Bet");
+        cpuBet1.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        cpuPanel1.add(cpuBet1);
+
         cpuContainer.add(cpuPanel1, java.awt.BorderLayout.WEST);
 
         cpuPanel2.setLayout(new javax.swing.BoxLayout(cpuPanel2, javax.swing.BoxLayout.Y_AXIS));
@@ -81,9 +89,20 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuCup2.setAlignmentX(0.5F);
         cpuPanel2.add(cpuCup2);
 
+        cpuBet2.setText("No Bet");
+        cpuBet2.setAlignmentX(0.5F);
+        cpuBet2.setAlignmentY(0.0F);
+        cpuBet2.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        cpuPanel2.add(cpuBet2);
+
         cpuContainer.add(cpuPanel2, java.awt.BorderLayout.NORTH);
 
         cpuPanel3.setLayout(new javax.swing.BoxLayout(cpuPanel3, javax.swing.BoxLayout.X_AXIS));
+
+        cpuBet3.setText("No Bet");
+        cpuBet3.setAlignmentX(0.5F);
+        cpuBet3.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        cpuPanel3.add(cpuBet3);
 
         cpuCup3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
         cpuPanel3.add(cpuCup3);
@@ -147,12 +166,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Call Lie");
+        lieButton.setText("Call Lie");
 
-        jButton1.setText("Make Bet");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        betButton.setText("Make Bet");
+        betButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                betButtonActionPerformed(evt);
             }
         });
 
@@ -176,8 +195,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                     .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(betButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lieButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         playerControlPanelLayout.setVerticalGroup(
@@ -190,11 +209,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                     .addComponent(radio4)
                     .addComponent(radio5)
                     .addComponent(radio6)
-                    .addComponent(jButton2))
+                    .addComponent(lieButton))
                 .addGap(18, 18, 18)
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(betButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -206,6 +225,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     
     public void setState(gameState a){
         state = a;
+        
     }
     
     public void updateBetLimits(int count, int value){
@@ -223,7 +243,46 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         return(new javax.swing.ImageIcon(getClass().getResource(images.get(dval))));
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void scheduleBet(int player){
+        int[] bet = state.getPlayerBet(player);
+        
+        System.out.println("player " +player +" bets " +bet[0] + " " +bet[1] +"s");
+        makeBet(player, bet[0],bet[1]);
+    }
+    
+    private void waitForBets(){
+        betButton.setEnabled(false);
+        lieButton.setEnabled(false);
+    }
+    
+    private void stopWaiting(){
+        betButton.setEnabled(true);
+        lieButton.setEnabled(true);
+    }
+    
+    private void makeBet(int player, int betCount, int betValue){
+        state.updateBet(betCount, betValue);
+        updateBetLimits(betCount, betValue);
+        if (player==0){
+            waitForBets();
+        }
+        state.iteratePlayer();
+                
+        
+        if (state.getNextPlayer() == 0)
+            stopWaiting();
+        else{
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                scheduleBet(state.getNextPlayer());
+            }
+          }, 10*1000);
+        }
+    }
+    
+    private void betButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_betButtonActionPerformed
         
         ArrayList<javax.swing.JLabel> dice = new ArrayList<>(
             Arrays.asList(die1, die2, die3, die4, die5));
@@ -253,8 +312,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             System.out.println("betCount: " +betCount);
             System.out.println("betValue: " +betValue);
 
-            state.updateBet(betCount, betValue);
-            updateBetLimits(betCount, betValue);
+            makeBet(0, betCount, betValue);
+            
             for(JRadioButton b : radioButtons){
                 b.setFont(defaultFont);
                 b.setForeground(Color.black);
@@ -262,7 +321,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         }
         
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_betButtonActionPerformed
 
     private void radio5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio5ActionPerformed
         // TODO add your handling code here:
@@ -296,8 +355,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton betButton;
     private javax.swing.JSlider betSlider;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel cpuBet1;
+    private javax.swing.JLabel cpuBet2;
+    private javax.swing.JLabel cpuBet3;
     private javax.swing.JPanel cpuContainer;
     private javax.swing.JLabel cpuCup1;
     private javax.swing.JLabel cpuCup2;
@@ -310,8 +373,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel die3;
     private javax.swing.JLabel die4;
     private javax.swing.JLabel die5;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton lieButton;
     private javax.swing.JPanel playerControlPanel;
     private javax.swing.JPanel playerDicePanel;
     private javax.swing.JRadioButton radio2;
