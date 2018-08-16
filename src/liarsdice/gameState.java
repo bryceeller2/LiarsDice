@@ -70,7 +70,7 @@ public class gameState {
         int[] bet = new int[2];
         
         Player activePlayer=players.get(playerNum);
-        bet = activePlayer.bet(getBetCount(), getBetValue());
+        bet = activePlayer.bet(getBetCount(), getBetValue(), this);
         
         return bet;
     }

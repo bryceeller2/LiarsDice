@@ -27,7 +27,7 @@ public class Player {
         Random gen = new Random();
         
         for (int i=0; i<diceCount; i++){
-            diceValues[i] = gen.nextInt(6);
+            diceValues[i] = gen.nextInt(6)+1;
         }
     }
     
@@ -61,12 +61,18 @@ public class Player {
     
     public void loseDie(){
         diceCount--;
+        diceValues=new Integer[diceCount];
     }
     
-    public int[] bet(int betCount, int betValue){
+    public int[] bet(int betCount, int betValue, gameState state){
         int[] bet = new int[2];
         int myValue=0;
         int myCount=0;
+        int totalDice = state.totalDice;
+
+        if(betCount >= totalDice/2){
+            return new int[]{-1,-1};
+        }
         
         if (betValue==6){
             myCount=betCount+1;
@@ -76,6 +82,8 @@ public class Player {
             myCount=betCount;
             myValue=betValue+1;
         }
+        if (myCount ==0)
+            myCount++;
         bet[0]=myCount;
         bet[1]=myValue;
         return bet;

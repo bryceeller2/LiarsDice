@@ -67,6 +67,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuBet3 = new javax.swing.JLabel();
         cpuCup3 = new javax.swing.JLabel();
         playerDicePanel = new javax.swing.JPanel();
+        playerBet = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         die1 = new javax.swing.JLabel();
         die2 = new javax.swing.JLabel();
         die3 = new javax.swing.JLabel();
@@ -203,27 +205,36 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         getContentPane().add(cpuContainer);
 
-        playerDicePanel.setLayout(new javax.swing.BoxLayout(playerDicePanel, javax.swing.BoxLayout.LINE_AXIS));
+        playerDicePanel.setLayout(new javax.swing.BoxLayout(playerDicePanel, javax.swing.BoxLayout.PAGE_AXIS));
+
+        playerBet.setText("No Bet");
+        playerBet.setAlignmentX(0.5F);
+        playerBet.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        playerDicePanel.add(playerBet);
+
+        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         die1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        playerDicePanel.add(die1);
+        jPanel1.add(die1);
 
         die2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        playerDicePanel.add(die2);
+        jPanel1.add(die2);
 
         die3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        playerDicePanel.add(die3);
+        jPanel1.add(die3);
 
         die4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        playerDicePanel.add(die4);
+        jPanel1.add(die4);
 
         die5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
         die5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        playerDicePanel.add(die5);
+        jPanel1.add(die5);
+
+        playerDicePanel.add(jPanel1);
 
         getContentPane().add(playerDicePanel);
 
@@ -356,7 +367,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         ArrayList<javax.swing.JLabel> dice = new ArrayList<>(
             Arrays.asList(die1, die2, die3, die4, die5));
         javax.swing.ImageIcon dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); javax.swing.ImageIcon a = new javax.swing.ImageIcon(getClass().getResource("/d1.png"));javax.swing.ImageIcon b = new javax.swing.ImageIcon(getClass().getResource("/d2.png"));javax.swing.ImageIcon c = new javax.swing.ImageIcon(getClass().getResource("/d3.png"));javax.swing.ImageIcon d = new javax.swing.ImageIcon(getClass().getResource("/d4.png"));javax.swing.ImageIcon e = new javax.swing.ImageIcon(getClass().getResource("/d5.png"));javax.swing.ImageIcon f = new javax.swing.ImageIcon(getClass().getResource("/d6.png"));
-        javax.swing.ImageIcon[] images = new javax.swing.ImageIcon[]{a,b,c,d,e,f};
+        javax.swing.ImageIcon[] images = new javax.swing.ImageIcon[]{dieX,a,b,c,d,e,f};
         cpuDicePanel1.setVisible(false);
         cpuDicePanel2.setVisible(false);
         cpuDicePanel3.setVisible(false);
@@ -393,25 +404,44 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         lieButton.setEnabled(true);
     }
     
-    private void makeBet(int player, int betCount, int betValue){
-        state.updateBet(betCount, betValue);
-        updateBetLimits(betCount, betValue);
-        if (player==0){
-            waitForBets();
+    private void resetBetText(){
+        javax.swing.JLabel[] betLabels = new javax.swing.JLabel[]{playerBet, cpuBet1, cpuBet2, cpuBet3};
+        for (int i=0; i<4; i++){
+            betLabels[i].setText("No Bet");
         }
-        state.iteratePlayer();
-                
-        
-        if (state.getNextPlayer() == 0)
-            stopWaiting();
+    }
+    
+    private void updateBetText(int player, int betCount, int betValue){
+        javax.swing.JLabel[] betLabels = new javax.swing.JLabel[]{playerBet, cpuBet1, cpuBet2, cpuBet3};
+        betLabels[player].setText("Player bets " +betCount +" " +betValue +"'s");
+    }
+    
+    private void makeBet(int player, int betCount, int betValue){
+        updateBetText(state.nextPlayer, betCount,betValue);
+                    
+        if (betCount<0 && betValue<0){
+            callLie();
+        }
         else{
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                scheduleBet(state.getNextPlayer());
+            state.updateBet(betCount, betValue);
+            updateBetLimits(betCount, betValue);
+            if (player==0){
+                waitForBets();
             }
-          }, 1*1000);
+            state.iteratePlayer();
+
+
+            if (state.getNextPlayer() == 0)
+                stopWaiting();
+            else{
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    scheduleBet(state.getNextPlayer());
+                }
+              }, 1*1000);
+            }
         }
     }
     
@@ -511,22 +541,27 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             caller.loseDie();
         else
             callie.loseDie();
-        
     }
     
     private void lieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lieButtonActionPerformed
-        showDice();
-        endRound();
+        callLie();
     }//GEN-LAST:event_lieButtonActionPerformed
 
+    private void callLie(){
+        showDice();
+        endRound();
+    }
+    
     private void newRoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRoundButtonActionPerformed
         betButton.setVisible(true);
         lieButton.setVisible(true);
         newRoundButton.setVisible(false);
         hideDice();
+        resetBetText();
         state.reset();
         updateBetLimits(0,0);
         rollDice();
+        scheduleBet(state.getNextPlayer());
     }//GEN-LAST:event_newRoundButtonActionPerformed
 
 
@@ -567,8 +602,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel die3;
     private javax.swing.JLabel die4;
     private javax.swing.JLabel die5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton lieButton;
     private javax.swing.JButton newRoundButton;
+    private javax.swing.JLabel playerBet;
     private javax.swing.JPanel playerControlPanel;
     private javax.swing.JPanel playerDicePanel;
     private javax.swing.JRadioButton radio2;
