@@ -15,7 +15,8 @@ public class Player {
     
     int diceCount;
     boolean active;
-    ArrayList<Integer> diceValues;
+    Integer[] diceValues=new Integer[5];
+    javax.swing.JLabel[] diceImages = new javax.swing.JLabel[5];
     
     public Player(){
         diceCount=5;
@@ -26,7 +27,7 @@ public class Player {
         Random gen = new Random();
         
         for (int i=0; i<diceCount; i++){
-            diceValues.set(i, gen.nextInt(6));
+            diceValues[i] = gen.nextInt(6);
         }
     }
     
@@ -34,12 +35,16 @@ public class Player {
         return active;
     }
     
-    public ArrayList<Integer> getDiceValue(){
+    public javax.swing.JLabel[] getDiceImages(){
+        return diceImages;
+    }
+    
+    public Integer[] getDiceValue(){
         return diceValues;
     }
     
     public int getDiceValue(int i){
-        return diceValues.get(i);
+        return diceValues[i];
     }
     
     public int getDiceCount(){
@@ -48,6 +53,14 @@ public class Player {
     
     public void kill(){
         active=false;
+    }
+    
+    public void setDiceImages(javax.swing.JLabel[] a){
+        diceImages=a;
+    }
+    
+    public void loseDie(){
+        diceCount--;
     }
     
     public int[] bet(int betCount, int betValue){

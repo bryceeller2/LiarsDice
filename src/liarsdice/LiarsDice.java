@@ -49,7 +49,7 @@ public class LiarsDice {
 
                                 
                 LiarsDiceJframe screen = new LiarsDiceJframe();
-                screen.setState(state);
+                screen.startGame(state);
                 screen.setVisible(true);
                 
                 
