@@ -389,8 +389,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     }
     
     private void scheduleBet(int player){
-        int[] bet = state.getPlayerBet(player);
-        
+        int[] bet = state.getPlayerBet(player);    
         System.out.println("player " +player +" bets " +bet[0] + " " +bet[1] +"s");
         makeBet(player, bet[0],bet[1]);
     }
@@ -562,12 +561,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     }
     
     private void updateCupImages(){
-        javax.swing.ImageIcon a = new javax.swing.ImageIcon(getClass().getResource("/1cup.png")); javax.swing.ImageIcon b = new javax.swing.ImageIcon(getClass().getResource("/2cup.png"));javax.swing.ImageIcon c = new javax.swing.ImageIcon(getClass().getResource("/3cup.png"));javax.swing.ImageIcon d = new javax.swing.ImageIcon(getClass().getResource("/4cup.png"));javax.swing.ImageIcon e = new javax.swing.ImageIcon(getClass().getResource("/5cup.png"));
-        javax.swing.ImageIcon[] cupImages = new javax.swing.ImageIcon[]{a,b,c,d,e};
+        javax.swing.ImageIcon a = new javax.swing.ImageIcon(getClass().getResource("/0cup.png")); javax.swing.ImageIcon b = new javax.swing.ImageIcon(getClass().getResource("/1cup.png")); javax.swing.ImageIcon c = new javax.swing.ImageIcon(getClass().getResource("/2cup.png"));javax.swing.ImageIcon d = new javax.swing.ImageIcon(getClass().getResource("/3cup.png"));javax.swing.ImageIcon e = new javax.swing.ImageIcon(getClass().getResource("/4cup.png"));javax.swing.ImageIcon f = new javax.swing.ImageIcon(getClass().getResource("/5cup.png"));
+        javax.swing.ImageIcon[] cupImages = new javax.swing.ImageIcon[]{a,b,c,d,e,f};
                
         for (Player p : state.getPlayers()){
             int diceCount = p.getDiceCount();
-            javax.swing.ImageIcon cup = cupImages[diceCount-1];
+            javax.swing.ImageIcon cup = cupImages[diceCount];
             p.updateCupImage(cup);
         }
     }

@@ -68,9 +68,15 @@ public class Player {
         cupImage.setIcon(a);
     }
     
-    public void loseDie(){
+    public boolean loseDie(){
         diceCount--;
         diceValues=new Integer[diceCount];
+        if (diceCount>0)
+            return true;
+        else{
+            active=false;
+            return false;
+        }
     }
     
     public int[] bet(int betCount, int betValue, gameState state){

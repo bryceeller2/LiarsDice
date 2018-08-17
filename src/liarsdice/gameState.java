@@ -14,6 +14,7 @@ import java.util.Random;
 public class gameState {
     
     ArrayList<Player> players;    
+    BetHistory betHistory = new BetHistory();
     Integer[] currentCall = new Integer[2];
     int nextPlayer;
     int totalDice;
@@ -36,9 +37,6 @@ public class gameState {
         for (Player player : players){
             if (player.getDiceCount() == 0)
                 player.kill();
-            else{
-                totalDice+=player.getDiceCount();
-            }
         }
     }
     
@@ -71,6 +69,7 @@ public class gameState {
         
         Player activePlayer=players.get(playerNum);
         bet = activePlayer.bet(getBetCount(), getBetValue(), this);
+        betHistory.logBet(bet);
         
         return bet;
     }
@@ -96,27 +95,28 @@ public class gameState {
             return false;
     }
     
+    public void endGame(){
+        
+    }
+    
     public void reset(){
         currentCall[0] = 0;
         currentCall[1] = 0;
+        totalDice--;
+        betHistory.clearLog();
     }
     
     public void iteratePlayer(){
+        
         nextPlayer++;
-        if (nextPlayer>3){
+        
+        if(nextPlayer>players.size()-1)
             nextPlayer=0;
-        }        
-        if (players.get(nextPlayer).getActive() == false){
+        
+        while(players.get(nextPlayer).getActive()== false){
             nextPlayer++;
+            if(nextPlayer>players.size()-1)
+                nextPlayer=0;
         }
-        if (nextPlayer>3){
-            nextPlayer=0;
-        }
-        if (players.get(nextPlayer).getActive() == false){
-            nextPlayer++;
-        }  
-        if (nextPlayer>3){
-            nextPlayer=0;
-        } 
     }
 }
