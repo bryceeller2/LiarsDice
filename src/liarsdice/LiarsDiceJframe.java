@@ -383,8 +383,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                 i++;
             }
         }
-                    
-        
     }
     
     private void scheduleBet(int player){
@@ -521,6 +519,20 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuDicePanel3.setVisible(false);
     }
     
+    private void highlightDice(){
+        javax.swing.ImageIcon dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); javax.swing.ImageIcon a = new javax.swing.ImageIcon(getClass().getResource("/d1h.png"));javax.swing.ImageIcon b = new javax.swing.ImageIcon(getClass().getResource("/d2h.png"));javax.swing.ImageIcon c = new javax.swing.ImageIcon(getClass().getResource("/d3h.png"));javax.swing.ImageIcon d = new javax.swing.ImageIcon(getClass().getResource("/d4h.png"));javax.swing.ImageIcon e = new javax.swing.ImageIcon(getClass().getResource("/d5h.png"));javax.swing.ImageIcon f = new javax.swing.ImageIcon(getClass().getResource("/d6h.png"));
+        javax.swing.ImageIcon[] highlightedImages = new javax.swing.ImageIcon[]{dieX,a,b,c,d,e,f};
+                
+        for (Player p:state.getPlayers()){
+            int i=0;
+            for(javax.swing.JLabel die : p.getDiceImages()){
+                if (i<p.getDiceCount() && (p.getDiceValue(i) == state.getBetValue() || p.getDiceValue(i) == 1))
+                    die.setIcon(highlightedImages[p.getDiceValue(i)]);
+                i++;
+            }
+        }
+    }
+    
     private void endRound(){
         betButton.setVisible(false);
         lieButton.setVisible(false);
@@ -535,6 +547,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             x = state.getNextPlayer()-1;
         Player callie = state.getPlayers().get(x);
         
+        highlightDice();
         
         boolean enoughDice = state.checkBet(betCount, betValue);
         if (enoughDice)
