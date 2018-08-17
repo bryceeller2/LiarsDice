@@ -354,6 +354,9 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         state.getPlayers().get(2).setDiceImages(new javax.swing.JLabel[]{cpuDie21,cpuDie22,cpuDie23,cpuDie24,cpuDie25});
         state.getPlayers().get(3).setDiceImages(new javax.swing.JLabel[]{cpuDie31,cpuDie32,cpuDie21,cpuDie34,cpuDie35});
 
+        state.getPlayers().get(1).setCupImage(cpuCup1);
+        state.getPlayers().get(2).setCupImage(cpuCup2);
+        state.getPlayers().get(3).setCupImage(cpuCup3);
         newRoundButton.setVisible(false);
 
         rollDice();
@@ -550,10 +553,23 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         highlightDice();
         
         boolean enoughDice = state.checkBet(betCount, betValue);
-        if (enoughDice)
+        if (enoughDice){
             caller.loseDie();
-        else
-            callie.loseDie();
+        }
+        else{
+            callie.loseDie(); 
+        }
+    }
+    
+    private void updateCupImages(){
+        javax.swing.ImageIcon a = new javax.swing.ImageIcon(getClass().getResource("/1cup.png")); javax.swing.ImageIcon b = new javax.swing.ImageIcon(getClass().getResource("/2cup.png"));javax.swing.ImageIcon c = new javax.swing.ImageIcon(getClass().getResource("/3cup.png"));javax.swing.ImageIcon d = new javax.swing.ImageIcon(getClass().getResource("/4cup.png"));javax.swing.ImageIcon e = new javax.swing.ImageIcon(getClass().getResource("/5cup.png"));
+        javax.swing.ImageIcon[] cupImages = new javax.swing.ImageIcon[]{a,b,c,d,e};
+               
+        for (Player p : state.getPlayers()){
+            int diceCount = p.getDiceCount();
+            javax.swing.ImageIcon cup = cupImages[diceCount-1];
+            p.updateCupImage(cup);
+        }
     }
     
     private void lieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lieButtonActionPerformed
@@ -573,6 +589,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         resetBetText();
         state.reset();
         updateBetLimits(0,0);
+        updateCupImages();
         rollDice();
         scheduleBet(state.getNextPlayer());
     }//GEN-LAST:event_newRoundButtonActionPerformed

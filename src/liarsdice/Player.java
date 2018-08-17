@@ -17,6 +17,7 @@ public class Player {
     boolean active;
     Integer[] diceValues=new Integer[5];
     javax.swing.JLabel[] diceImages = new javax.swing.JLabel[5];
+    javax.swing.JLabel cupImage = new javax.swing.JLabel();
     
     public Player(){
         diceCount=5;
@@ -57,6 +58,14 @@ public class Player {
     
     public void setDiceImages(javax.swing.JLabel[] a){
         diceImages=a;
+    }
+    
+    public void setCupImage(javax.swing.JLabel a){
+        cupImage=a;
+    }
+    
+    public void updateCupImage(javax.swing.ImageIcon a){
+        cupImage.setIcon(a);
     }
     
     public void loseDie(){
