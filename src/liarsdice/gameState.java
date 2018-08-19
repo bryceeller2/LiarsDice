@@ -26,6 +26,9 @@ public class gameState {
         }
         nextPlayer=0;
         totalDice=20;
+        currentCall[0]=0;
+        currentCall[1]=0;
+
     }
     
     public void playRound(){

@@ -110,16 +110,17 @@ public class Player {
             count[diceValues[i]-1]++;
         }
         
-        int maxValue=1;
-        int maxCount=diceValues[1];
-        for (int i=2; i<6; i++){
+        
+        int maxValue=gen.nextInt(diceCount)+2;
+        int maxCount=diceValues[maxValue-2];
+        for (int i=1; i<6; i++){
             if(count[i] > maxCount){
-                maxValue=i;
-                maxCount=diceValues[i];
+                maxValue=i+1;
+                maxCount=count[i];
             }
         }
         
-        return maxValue+1;
+        return maxValue;
     }
     
     public int[] bet(int betCount, int betValue, gameState state){
@@ -144,14 +145,16 @@ public class Player {
                 myValue=gen.nextInt(5)+2;
             if(myCount<2)
                 myCount=2;
-            while(myCount<betCount || (myCount == betCount && myValue<betValue))
+            while(myCount<betCount || (myCount == betCount && myValue<=betValue))
                 myCount++;
             
+            System.out.println("earlyBet");
             return new int[]{myCount,myValue};
         }
         
         //First priority is to fuck with people if you have four+ of a number
         if (yahtzee() != 0){
+            System.out.println("Yahtzee bet");
             if (yahtzee() > betValue)
                 return new int[]{betCount, yahtzee()};
             else
@@ -160,6 +163,7 @@ public class Player {
         
         //Second priority is to bet with the crowd if you have 2+ of the same value
         if (getCountOfDiceValue(commonValue) + getCountOfDiceValue(1) >= 2 && state.betHistory.getLength() >= 3){
+            System.out.println("Crowd Bet");
             return new int[]{betCount+1, commonValue};
         }
         
@@ -176,9 +180,11 @@ public class Player {
         if (gen.nextInt(3) == 0){
             myValue=mostValue();
             myCount=2;
-            while(myCount<betCount || (myCount == betCount && myValue<betValue))
+            while(myCount<betCount || (myCount == betCount && myValue<=betValue))
                 myCount++;
         }
+        
+        System.out.println("defaultBet");
         
         bet[0]=myCount;
         bet[1]=myValue;

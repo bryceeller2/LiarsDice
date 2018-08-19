@@ -80,7 +80,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         radio4 = new javax.swing.JRadioButton();
         radio5 = new javax.swing.JRadioButton();
         radio6 = new javax.swing.JRadioButton();
-        betSlider = new javax.swing.JSlider();
+        betSpinner = new javax.swing.JSpinner();
         lieButton = new javax.swing.JButton();
         betButton = new javax.swing.JButton();
         newRoundButton = new javax.swing.JButton();
@@ -258,14 +258,13 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         buttonGroup1.add(radio6);
         radio6.setText("Six's");
 
-        betSlider.setMajorTickSpacing(5);
-        betSlider.setMaximum(20);
-        betSlider.setMinorTickSpacing(1);
-        betSlider.setPaintLabels(true);
-        betSlider.setPaintTicks(true);
-        betSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+        betSpinner.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        betSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
+        betSpinner.setMinimumSize(new java.awt.Dimension(60, 40));
+        betSpinner.setPreferredSize(new java.awt.Dimension(60, 40));
+        betSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                betSliderStateChanged(evt);
+                betSpinnerStateChanged(evt);
             }
         });
 
@@ -295,24 +294,27 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         playerControlPanelLayout.setHorizontalGroup(
             playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(playerControlPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(playerControlPanelLayout.createSequentialGroup()
-                        .addComponent(radio2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(radio2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radio3, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                        .addComponent(radio3, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radio4, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                        .addComponent(radio4, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radio5, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                        .addComponent(radio5, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radio6, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
-                    .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radio6, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playerControlPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(betSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(208, 208, 208)))
                 .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(betButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(playerControlPanelLayout.createSequentialGroup()
-                        .addComponent(newRoundButton, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addComponent(newRoundButton, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lieButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -335,9 +337,9 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                             .addComponent(lieButton)
                             .addComponent(newRoundButton))
                         .addGap(7, 7, 7)))
-                .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(betSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(betButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(playerControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(betButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(betSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -363,9 +365,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     }
     
     public void updateBetLimits(int count, int value){
-        betSlider.setMinimum(count);
+        if(value == 6)
+            count++;
+        betSpinner.setModel(new javax.swing.SpinnerNumberModel(count, count, state.totalDice, 1));
+        disableRadioButtons();
     }
-        
+            
     public void rollDice(){
         ArrayList<javax.swing.JLabel> dice = new ArrayList<>(
             Arrays.asList(die1, die2, die3, die4, die5));
@@ -462,7 +467,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         }
         
         else{
-            int betCount = betSlider.getValue();
+            int betCount = (int)betSpinner.getValue();
             
             System.out.println("total dice: " +state.getDice());
             System.out.println("betCount: " +betCount);
@@ -565,9 +570,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         scheduleBet(state.getNextPlayer());
     }//GEN-LAST:event_newRoundButtonActionPerformed
 
-    private void betSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_betSliderStateChanged
-
-        int value = betSlider.getValue();
+    private void disableRadioButtons(){
+        int value = (int)betSpinner.getValue();
         ArrayList<javax.swing.JRadioButton> radioButtons = new ArrayList<>(
             Arrays.asList(radio2,radio3,radio4,radio5,radio6));
         if (state.getBetCount() == value){
@@ -589,12 +593,16 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                 button.getModel().setEnabled(true);
             }
         }
-    }//GEN-LAST:event_betSliderStateChanged
+    }
+    
+    private void betSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_betSpinnerStateChanged
+        disableRadioButtons();
+    }//GEN-LAST:event_betSpinnerStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton betButton;
-    private javax.swing.JSlider betSlider;
+    private javax.swing.JSpinner betSpinner;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel cpuBet1;
     private javax.swing.JLabel cpuBet2;
