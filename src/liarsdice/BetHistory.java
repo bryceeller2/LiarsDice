@@ -40,21 +40,26 @@ public class BetHistory {
     }
     
     public int getMostCommonValue(){
-        int[] values = new int[]{0,0,0,0,0,0};
+        int[] values = new int[]{0,0,0,0,0};
         for(int i=0; i<log.size(); i++){
             int betValue = log.get(i)[1];
-            values[betValue]++;
+            values[betValue-2]++;
         }
         
-        int maxValue = 0;
+        int maxValue = 2;
         int maxCount = values[0];
 
-        for(int i=1; i<=6; i++){
-            if (values[i]>maxCount)
-                maxValue = i;
+        for(int i=1; i<=4; i++){
+            if (values[i]>maxCount){
+                maxValue = i+2;
                 maxCount = values[i];
+            }
         }
         return maxValue;
+    }
+    
+    public int getLength(){
+        return log.size();
     }
     
     public int getValueCount(int value){

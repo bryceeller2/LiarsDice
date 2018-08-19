@@ -352,7 +352,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         state.getPlayers().get(0).setDiceImages(new javax.swing.JLabel[]{die1,die2,die3,die4,die5});
         state.getPlayers().get(1).setDiceImages(new javax.swing.JLabel[]{cpuDie11,cpuDie12,cpuDie13,cpuDie14,cpuDie15});
         state.getPlayers().get(2).setDiceImages(new javax.swing.JLabel[]{cpuDie21,cpuDie22,cpuDie23,cpuDie24,cpuDie25});
-        state.getPlayers().get(3).setDiceImages(new javax.swing.JLabel[]{cpuDie31,cpuDie32,cpuDie21,cpuDie34,cpuDie35});
+        state.getPlayers().get(3).setDiceImages(new javax.swing.JLabel[]{cpuDie31,cpuDie32,cpuDie33,cpuDie34,cpuDie35});
 
         state.getPlayers().get(1).setCupImage(cpuCup1);
         state.getPlayers().get(2).setCupImage(cpuCup2);
@@ -474,40 +474,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                 b.setFont(defaultFont);
                 b.setForeground(Color.black);
             }
-        }
-        
-        
+        } 
     }//GEN-LAST:event_betButtonActionPerformed
 
     private void radio5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radio5ActionPerformed
-
-    private void betSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_betSliderStateChanged
-        
-        int value = betSlider.getValue();
-        ArrayList<javax.swing.JRadioButton> radioButtons = new ArrayList<>(
-        Arrays.asList(radio2,radio3,radio4,radio5,radio6));
-        if (state.getBetCount() == value){
-            
-            int i=2;
-            for (javax.swing.JRadioButton button : radioButtons){
-                if (i <= state.getBetValue()){
-                    button.getModel().setEnabled(false);
-                    buttonGroup1.clearSelection();
-                }
-                else{
-                    button.getModel().setEnabled(true);
-                }
-                i++;
-            }
-        }
-        else{
-            for (javax.swing.JRadioButton button : radioButtons){
-                 button.getModel().setEnabled(true);
-            }
-        }
-    }//GEN-LAST:event_betSliderStateChanged
 
     private void showDice(){
         cpuDicePanel1.setVisible(true);
@@ -592,6 +564,32 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         rollDice();
         scheduleBet(state.getNextPlayer());
     }//GEN-LAST:event_newRoundButtonActionPerformed
+
+    private void betSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_betSliderStateChanged
+
+        int value = betSlider.getValue();
+        ArrayList<javax.swing.JRadioButton> radioButtons = new ArrayList<>(
+            Arrays.asList(radio2,radio3,radio4,radio5,radio6));
+        if (state.getBetCount() == value){
+
+            int i=2;
+            for (javax.swing.JRadioButton button : radioButtons){
+                if (i <= state.getBetValue()){
+                    button.getModel().setEnabled(false);
+                    buttonGroup1.clearSelection();
+                }
+                else{
+                    button.getModel().setEnabled(true);
+                }
+                i++;
+            }
+        }
+        else{
+            for (javax.swing.JRadioButton button : radioButtons){
+                button.getModel().setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_betSliderStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
