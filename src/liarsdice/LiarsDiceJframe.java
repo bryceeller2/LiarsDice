@@ -367,7 +367,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     public void updateBetLimits(int count, int value){
         if(value == 6)
             count++;
-        betSpinner.setModel(new javax.swing.SpinnerNumberModel(count, count, state.totalDice, 1));
+        if (state.isEndState())
+            betSpinner.setModel(new javax.swing.SpinnerNumberModel(count, count, state.totalDice*6, 1));
+        else
+            betSpinner.setModel(new javax.swing.SpinnerNumberModel(count, count, state.totalDice, 1));
         disableRadioButtons();
     }
             
@@ -418,7 +421,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     
     private void updateBetText(int player, int betCount, int betValue){
         javax.swing.JLabel[] betLabels = new javax.swing.JLabel[]{playerBet, cpuBet1, cpuBet2, cpuBet3};
-        betLabels[player].setText("Player bets " +betCount +" " +betValue +"'s");
+        if (betValue<0)
+            betLabels[player].setText("Player calls Lie!");
+        else if (betValue==0)
+            betLabels[player].setText("Player bets at least " +betCount +" dots.");
+        else
+            betLabels[player].setText("Player bets " +betCount +" " +betValue +"'s");
     }
     
     private void makeBet(int player, int betCount, int betValue){
@@ -428,6 +436,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             callLie();
         }
         else{
+            state.betHistory.logBet(new int[]{betCount, betValue});
             state.updateBet(betCount, betValue);
             updateBetLimits(betCount, betValue);
             if (player==0){
@@ -459,7 +468,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
                 
         int betValue = dataConverter.getCountFromButton(buttonGroup1);
         
-        if (betValue == 0){
+        if (betValue == 0 && !state.isEndState()){
             for(JRadioButton b : radioButtons){
                 b.setFont(clickmeFont);
                 b.setForeground(Color.red);
@@ -472,7 +481,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             System.out.println("total dice: " +state.getDice());
             System.out.println("betCount: " +betCount);
             System.out.println("betValue: " +betValue);
-
+            
             makeBet(0, betCount, betValue);
             
             for(JRadioButton b : radioButtons){
@@ -520,14 +529,18 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         int betValue = state.getBetValue();
         Player caller = state.getPlayers().get(state.getNextPlayer());
         int x;
-        if (state.getNextPlayer() == 0)
+        if (state.getNextPlayer() == 0){
             x = state.getPlayers().size()-1;
-        else
+            while(state.getPlayers().get(x).active==false)
+                x = state.getPlayers().size()-1;
+        }
+        else{
             x = state.getNextPlayer()-1;
+            while(state.getPlayers().get(x).active==false)
+                x = state.getNextPlayer()-1;
+        }
         Player callie = state.getPlayers().get(x);
-        
         highlightDice();
-        
         boolean enoughDice = state.checkBet(betCount, betValue);
         if (enoughDice){
             caller.loseDie();
@@ -563,19 +576,34 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         newRoundButton.setVisible(false);
         hideDice();
         resetBetText();
+        state.iteratePlayer();
         state.reset();
         updateBetLimits(0,0);
         updateCupImages();
         rollDice();
-        scheduleBet(state.getNextPlayer());
+        if (state.getNextPlayer()>0){
+            waitForBets();
+            scheduleBet(state.getNextPlayer());
+        }
+        else   
+            stopWaiting();
+            
     }//GEN-LAST:event_newRoundButtonActionPerformed
 
     private void disableRadioButtons(){
         int value = (int)betSpinner.getValue();
         ArrayList<javax.swing.JRadioButton> radioButtons = new ArrayList<>(
             Arrays.asList(radio2,radio3,radio4,radio5,radio6));
+        
+        if(state.isEndState()){
+            for (javax.swing.JRadioButton button : radioButtons){
+                button.getModel().setEnabled(false);
+                buttonGroup1.clearSelection();
+            }
+            return;
+        }
+        
         if (state.getBetCount() == value){
-
             int i=2;
             for (javax.swing.JRadioButton button : radioButtons){
                 if (i <= state.getBetValue()){

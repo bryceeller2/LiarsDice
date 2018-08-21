@@ -123,7 +123,20 @@ public class Player {
         return maxValue;
     }
     
+    public int [] endGameBet(int betCount, gameState state){
+        int totalDice = state.totalDice;
+        int target = (totalDice*3)+(totalDice/2);
+        if (betCount<target)
+            return new int[]{betCount+1,0};
+        else
+            return new int[]{-1,-1};
+    }
+    
     public int[] bet(int betCount, int betValue, gameState state){
+        
+        if (state.endState)
+            return endGameBet(betCount, state);
+        
         int[] bet = new int[2];
         int myValue=0;
         int myCount=0;
@@ -138,8 +151,8 @@ public class Player {
         
         //Otherwise check to see if this is an early bet
         if (betCount<totalDice/4){
-            myCount=(totalDice/4)+(zeroonetwo-1);
-            if (zeroonetwo==0)
+            myCount=(totalDice/4)+(zeroonetwo);
+            if (gen.nextInt(5)!=0)
                 myValue=mostValue();
             else
                 myValue=gen.nextInt(5)+2;
@@ -177,7 +190,8 @@ public class Player {
             myValue=betValue+1;
         }
         
-        if (gen.nextInt(3) == 0){
+        //Bet the number you have most of
+        if (gen.nextInt(4) < 3){
             myValue=mostValue();
             myCount=2;
             while(myCount<betCount || (myCount == betCount && myValue<=betValue))

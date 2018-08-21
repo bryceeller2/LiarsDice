@@ -16,6 +16,7 @@ public class gameState {
     ArrayList<Player> players;    
     BetHistory betHistory = new BetHistory();
     Integer[] currentCall = new Integer[2];
+    boolean endState=false;
     int nextPlayer;
     int totalDice;
     
@@ -67,22 +68,45 @@ public class gameState {
         return nextPlayer;
     }
     
+    public boolean isEndState(){
+        return endState;
+    }
+    
     public int[] getPlayerBet(int playerNum){
         int[] bet = new int[2];
         
         Player activePlayer=players.get(playerNum);
         bet = activePlayer.bet(getBetCount(), getBetValue(), this);
-        betHistory.logBet(bet);
         
-        return bet;
+        return bet; 
     }
     
     public ArrayList<Player> getPlayers(){
         return players;
     }
     
+    //Checks who loses in the end state
+    public boolean endStateCheck(int count){
+        int realCount =0;
+        for (Player p:players){
+            int i=0;
+            for (int diceVal:p.diceValues){
+                if (i<p.getDiceCount())
+                    realCount+=diceVal;
+            }
+        }
+        
+        if (realCount >= count)
+            return true;
+        else
+            return false;
+    }
+    
     public boolean checkBet(int count, int value){
         int realCount=0;
+        
+        if (endState)
+            return endStateCheck(count);
         
         for (Player p:players){
             int i=0;
@@ -98,6 +122,18 @@ public class gameState {
             return false;
     }
     
+    //Check if we are in the end state
+    public boolean checkEndState(){
+        for (Player p : players){
+            if (p.diceCount==1){
+                endState=true;
+                return true;
+            }
+        }
+        endState=false;
+        return false;
+    }
+    
     public void endGame(){
         
     }
@@ -107,6 +143,8 @@ public class gameState {
         currentCall[1] = 0;
         totalDice--;
         betHistory.clearLog();
+        checkEndState();
+
     }
     
     public void iteratePlayer(){
