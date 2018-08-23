@@ -15,7 +15,7 @@ public class Player {
     
     int diceCount;
     boolean active;
-    Integer[] diceValues=new Integer[5];
+    int[] diceValues=new int[5];
     javax.swing.JLabel[] diceImages = new javax.swing.JLabel[5];
     javax.swing.JLabel cupImage = new javax.swing.JLabel();
     Random gen = new Random();
@@ -39,7 +39,7 @@ public class Player {
         return diceImages;
     }
     
-    public Integer[] getDiceValue(){
+    public int[] getDiceValues(){
         return diceValues;
     }
     
@@ -69,7 +69,7 @@ public class Player {
     
     public boolean loseDie(){
         diceCount--;
-        diceValues=new Integer[diceCount];
+        diceValues=new int[diceCount];
         if (diceCount>0)
             return true;
         else{
