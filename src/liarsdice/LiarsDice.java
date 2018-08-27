@@ -45,14 +45,16 @@ public class LiarsDice {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 System.out.println("Program Running");
-                //StartScreen screen = new StartScreen();
-                //screen.setVisible(true);
+                StartScreen screen = new StartScreen();
+                screen.setVisible(true);
                 
+                /*
                 gameState state = new gameState();
                                 
                 LiarsDiceJframe screen = new LiarsDiceJframe();
                 screen.startGame(state);
                 screen.setVisible(true);
+                */
             }
         });
     }

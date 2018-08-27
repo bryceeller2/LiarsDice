@@ -13,6 +13,10 @@ import java.util.Random;
 import javax.swing.JRadioButton;
 import java.util.Timer;
 import javax.swing.JLabel;
+import java.io.File;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -26,6 +30,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
      */
     public LiarsDiceJframe() {
         initComponents();
+        JFXPanel fxPanel = new JFXPanel();
     }
 
     /**
@@ -104,7 +109,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
-        setPreferredSize(new java.awt.Dimension(900, 1000));
+        setMinimumSize(new java.awt.Dimension(1280, 1000));
+        setPreferredSize(new java.awt.Dimension(1280, 1000));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         cpuContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
@@ -426,8 +432,24 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         }
         disableRadioButtons();
     }
+    
+    private void playSound(String bip){
+        String sound = getClass().getResource(bip).toString();
+        
+        try{
+            Media hit = new Media(sound);
+            MediaPlayer mediaPlayer = new MediaPlayer(hit);
+            mediaPlayer.play();
+        }
+        catch(Exception e){
+            System.out.print("Sound not played: ");
+            System.out.println(e.getMessage());
+        }        
+    }
             
     public void rollDice(){
+        playSound("/diceroll.mp3");
+        
         ArrayList<javax.swing.JLabel> dice = new ArrayList<>(
             Arrays.asList(die1, die2, die3, die4, die5));
         javax.swing.ImageIcon dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); javax.swing.ImageIcon a = new javax.swing.ImageIcon(getClass().getResource("/d1.png"));javax.swing.ImageIcon b = new javax.swing.ImageIcon(getClass().getResource("/d2.png"));javax.swing.ImageIcon c = new javax.swing.ImageIcon(getClass().getResource("/d3.png"));javax.swing.ImageIcon d = new javax.swing.ImageIcon(getClass().getResource("/d4.png"));javax.swing.ImageIcon e = new javax.swing.ImageIcon(getClass().getResource("/d5.png"));javax.swing.ImageIcon f = new javax.swing.ImageIcon(getClass().getResource("/d6.png"));
@@ -660,13 +682,14 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         System.out.println("The person being called on is player " +x);
         
         if(state.checkPlayerWin()){
-            
+            WinScreen screen = new WinScreen();
+            screen.setVisible(true);
+            this.dispose();
         }
         else if (state.checkPlayerLose()){
-            
-        }
-        else{
-            
+            LoseScreen screen = new LoseScreen();
+            screen.setVisible(true);
+            this.dispose();
         }
     }
     

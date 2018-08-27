@@ -27,33 +27,33 @@ public class StartScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(788, 974));
-        setPreferredSize(new java.awt.Dimension(788, 974));
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Liars Dice");
-        jLabel1.setAlignmentX(0.5F);
-        jPanel1.add(jLabel1);
+        jPanel2.setOpaque(false);
+        jPanel2.setLayout(null);
 
         jButton1.setText("Play Game");
-        jButton1.setAlignmentX(0.5F);
+        jButton1.setAlignmentY(0.0F);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jPanel2.add(jButton1);
+        jButton1.setBounds(630, 580, 83, 23);
 
-        getContentPane().add(jPanel1);
+        getContentPane().add(jPanel2);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/startscreen.png"))); // NOI18N
+        getContentPane().add(jLabel2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -70,7 +70,7 @@ public class StartScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
