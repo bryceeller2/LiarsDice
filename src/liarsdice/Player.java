@@ -7,6 +7,8 @@ package liarsdice;
 import java.io.*;
 import java.util.*;
 import java.util.Random;
+import javax.swing.border.EmptyBorder;
+import sun.nio.cs.IBM775;
 /**
  *
  * @author Computer
@@ -111,8 +113,9 @@ public class Player {
         }
         
         
-        int maxValue=gen.nextInt(diceCount)+2;
-        int maxCount=diceValues[maxValue-2];
+        int maxValue=gen.nextInt(5)+2;
+        int maxCount=count[maxValue-1];
+        
         for (int i=1; i<6; i++){
             if(count[i] > maxCount){
                 maxValue=i+1;
@@ -126,8 +129,21 @@ public class Player {
     public int [] endGameBet(int betCount, gameState state){
         int totalDice = state.totalDice;
         int target = (totalDice*3)+(totalDice/2);
-        if (betCount<target)
-            return new int[]{betCount+1,0};
+        int mybet=betCount;
+        
+        if(mybet < target*.75)
+            mybet=(int)(target*.75);
+        
+        
+        if (mybet<target){
+            if (mybet<=betCount)
+                mybet = betCount+1;
+            
+            if(gen.nextInt(4)==0 && mybet<totalDice/2)
+                mybet++;
+            
+            return new int[]{mybet,0};
+        }
         else
             return new int[]{-1,-1};
     }
@@ -192,6 +208,7 @@ public class Player {
         
         //Bet the number you have most of
         if (gen.nextInt(4) < 3){
+            System.out.println("betting the number he has the most of");
             myValue=mostValue();
             myCount=2;
             while(myCount<betCount || (myCount == betCount && myValue<=betValue))

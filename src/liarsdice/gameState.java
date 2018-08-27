@@ -72,6 +72,20 @@ public class gameState {
         return endState;
     }
     
+    public boolean checkPlayerWin(){
+        if (players.get(1).getDiceCount()==0 && players.get(2).getDiceCount()==0 && players.get(3).getDiceCount()==0)
+            return true;
+        else
+            return false;
+    }
+    
+    public boolean checkPlayerLose(){
+        if (players.get(0).getDiceCount()==0)
+            return true;
+        else
+            return false;
+    }
+    
     public int[] getPlayerBet(int playerNum){
         int[] bet = new int[2];
         
@@ -83,6 +97,31 @@ public class gameState {
     
     public ArrayList<Player> getPlayers(){
         return players;
+    }
+    
+    public int [] getRealCount(int value){
+        int realCount=0;
+        
+        if(isEndState()){
+            for (Player p:players){
+                int i=0;
+                for (int diceVal:p.diceValues){
+                    realCount+=diceVal;
+                }
+            }
+        }
+        else{
+            for (Player p:players){
+                int i=0;
+                for (int diceVal:p.diceValues){
+                    if ((diceVal==1 || diceVal==value) && i<p.getDiceCount())
+                        realCount++;
+                }
+            }
+        }
+        
+        
+        return new int[]{realCount,value};
     }
     
     //Checks who loses in the end state

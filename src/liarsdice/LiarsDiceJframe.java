@@ -75,6 +75,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         cpuBet3 = new javax.swing.JLabel();
         cpuCup3 = new javax.swing.JLabel();
+        parrotPanel = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        parrotTalk = new javax.swing.JLabel();
+        bubble = new javax.swing.JLabel();
+        parrot = new javax.swing.JLabel();
         playerDicePanel = new javax.swing.JPanel();
         playerBet = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -249,6 +254,31 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuContainer.add(cpuPanel3, java.awt.BorderLayout.EAST);
 
+        parrotPanel.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel11.setLayout(new javax.swing.OverlayLayout(jPanel11));
+
+        parrotTalk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        parrotTalk.setText("<html><body>SQUAK!<br>Welcome to Liars Dice!<br>Your turn to place a bet!<br>SQUAWK!</body></html>");
+        parrotTalk.setAlignmentX(0.5F);
+        parrotTalk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel11.add(parrotTalk);
+
+        bubble.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bubble.setIcon(new javax.swing.ImageIcon(getClass().getResource("/speechbubbletr.png"))); // NOI18N
+        bubble.setAlignmentX(0.5F);
+        jPanel11.add(bubble);
+
+        parrotPanel.add(jPanel11);
+
+        parrot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        parrot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parrot.png"))); // NOI18N
+        parrot.setAlignmentX(0.5F);
+        parrot.setAlignmentY(1.0F);
+        parrotPanel.add(parrot);
+
+        cpuContainer.add(parrotPanel, java.awt.BorderLayout.CENTER);
+
         getContentPane().add(cpuContainer);
 
         playerDicePanel.setLayout(new javax.swing.BoxLayout(playerDicePanel, javax.swing.BoxLayout.PAGE_AXIS));
@@ -315,11 +345,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         buttonGroup1.add(radio5);
         radio5.setText("Five's");
-        radio5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radio5ActionPerformed(evt);
-            }
-        });
         jPanel9.add(radio5);
 
         buttonGroup1.add(radio6);
@@ -381,7 +406,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         
         betSpinner.getComponent(0).setPreferredSize(new Dimension(40,40));
         betSpinner.getComponent(1).setPreferredSize(new Dimension(40,40)); 
-
+        
 
         rollDice();
     }
@@ -515,10 +540,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_betButtonActionPerformed
 
-    private void radio5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radio5ActionPerformed
-
     private void showDice(){
         cpuDicePanel1.setVisible(true);
         cpuDicePanel2.setVisible(true);
@@ -532,6 +553,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     }
     
     private void highlightDice(boolean enough){
+        
+        if (state.isEndState())
+            return;
+        
         javax.swing.ImageIcon dieX, a, b, c, d, e, f;
         if (enough){
             dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); a = new javax.swing.ImageIcon(getClass().getResource("/d1g.png")); b = new javax.swing.ImageIcon(getClass().getResource("/d2g.png")); c = new javax.swing.ImageIcon(getClass().getResource("/d3g.png")); d = new javax.swing.ImageIcon(getClass().getResource("/d4g.png")); e = new javax.swing.ImageIcon(getClass().getResource("/d5g.png")); f = new javax.swing.ImageIcon(getClass().getResource("/d6g.png"));
@@ -551,27 +576,68 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         }
     }
     
+    private void showRoundResults(boolean endState, boolean enough, int[] count, int callie, int caller){
+        int realCount = count[0];
+        int realValue = count[1];
+        
+        String callerName="";
+        String callieName="";
+        String output="<html><body>";
+
+        output += "SQUAWK!<br>";
+        
+        if (callie>0)
+            output += "Player " +Integer.toString(callie) +" is ";
+        else
+            output += "You are ";
+        
+        if(enough)
+            output += "NOT";
+        
+        output += " a liar!<br>";
+        output += "There are ";
+        
+        if(!enough)
+            output+="only ";
+        
+        if (endState)
+            output+=(count[0] +" dots! <br>");
+        else
+            output+=(count[0] +" " +count[1] +"'s<br>");
+        
+        output += "SQUAWK!<br>";
+        
+        output += "</body></html>";
+        
+        parrotTalk.setText(output);
+    }
+    
     private void endRound(){
         betButton.setVisible(false);
         lieButton.setVisible(false);
         newRoundButton.setVisible(true);
         int betCount = state.getBetCount();
         int betValue = state.getBetValue();
+        
         Player caller = state.getPlayers().get(state.getNextPlayer());
         int x;
         if (state.getNextPlayer() == 0){
             x = state.getPlayers().size()-1;
-            while(state.getPlayers().get(x).active==false)
-                x = state.getPlayers().size()-1;
+            while(state.getPlayers().get(x).active==false){
+                x--;
+            }
         }
         else{
             x = state.getNextPlayer()-1;
-            while(state.getPlayers().get(x).active==false)
-                x = state.getNextPlayer()-1;
+            while(state.getPlayers().get(x).active==false){
+                x--;
+            }
         }
         Player callie = state.getPlayers().get(x);
+        
         boolean enoughDice = state.checkBet(betCount, betValue);
         highlightDice(enoughDice);
+        showRoundResults(state.isEndState(), enoughDice, state.getRealCount(betValue), x, state.getNextPlayer());
         
         for(Player p : state.getPlayers()){
             int[] values = p.getDiceValues();
@@ -593,6 +659,15 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         System.out.println("The caller is player " +state.getNextPlayer());
         System.out.println("The person being called on is player " +x);
         
+        if(state.checkPlayerWin()){
+            
+        }
+        else if (state.checkPlayerLose()){
+            
+        }
+        else{
+            
+        }
     }
     
     private void updateCupImages(){
@@ -615,6 +690,17 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         endRound();
     }
     
+    private void setParrotText(String text){
+        String output="<html><body>SQUAWK!<br>";
+
+        output+=text;
+        output+="<br>SQUAWK!";
+        
+        output += "</body></html>";
+        
+        parrotTalk.setText(output);
+    }
+    
     private void newRoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRoundButtonActionPerformed
         betButton.setVisible(true);
         lieButton.setVisible(true);
@@ -625,6 +711,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         state.reset();
         updateBetLimits(0,0);
         updateCupImages();
+        setParrotText("There are " +state.getDice() +" dice left!");
         rollDice();
         if (state.getNextPlayer()>0){
             waitForBets();
@@ -676,6 +763,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton betButton;
     private javax.swing.JSpinner betSpinner;
+    private javax.swing.JLabel bubble;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel cpuBet1;
     private javax.swing.JLabel cpuBet2;
@@ -715,6 +803,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -725,6 +814,9 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JButton lieButton;
     private javax.swing.JButton newRoundButton;
+    private javax.swing.JLabel parrot;
+    private javax.swing.JPanel parrotPanel;
+    private javax.swing.JLabel parrotTalk;
     private javax.swing.JLabel playerBet;
     private javax.swing.JPanel playerControlPanel;
     private javax.swing.JPanel playerDicePanel;
