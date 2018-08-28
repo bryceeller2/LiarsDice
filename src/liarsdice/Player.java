@@ -174,6 +174,8 @@ public class Player {
                 myValue=gen.nextInt(5)+2;
             if(myCount<2)
                 myCount=2;
+            if(myCount>4 && diceCount>12)
+                myCount=4;
             while(myCount<betCount || (myCount == betCount && myValue<=betValue))
                 myCount++;
             

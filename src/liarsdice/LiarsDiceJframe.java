@@ -43,6 +43,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel12 = new javax.swing.JPanel();
         cpuContainer = new javax.swing.JPanel();
         cpuPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -106,24 +107,33 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         lieButton = new javax.swing.JButton();
         newRoundButton = new javax.swing.JButton();
         betButton = new javax.swing.JButton();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
         setMinimumSize(new java.awt.Dimension(1280, 1000));
         setPreferredSize(new java.awt.Dimension(1280, 1000));
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
+        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
+
+        jPanel12.setOpaque(false);
+        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.Y_AXIS));
 
         cpuContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        cpuContainer.setOpaque(false);
         cpuContainer.setLayout(new java.awt.BorderLayout());
 
+        cpuPanel1.setOpaque(false);
         cpuPanel1.setLayout(new javax.swing.BoxLayout(cpuPanel1, javax.swing.BoxLayout.X_AXIS));
 
+        jPanel4.setOpaque(false);
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/angler.png"))); // NOI18N
         jLabel2.setAlignmentX(0.5F);
         jPanel4.add(jLabel2);
 
+        jPanel5.setOpaque(false);
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
 
         cpuBet1.setText("No Bet");
@@ -137,6 +147,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuPanel1.add(jPanel4);
 
+        cpuDicePanel1.setOpaque(false);
         cpuDicePanel1.setLayout(new javax.swing.BoxLayout(cpuDicePanel1, javax.swing.BoxLayout.PAGE_AXIS));
 
         cpuDie11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
@@ -163,10 +174,13 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuContainer.add(cpuPanel1, java.awt.BorderLayout.WEST);
 
+        cpuPanel2.setOpaque(false);
         cpuPanel2.setLayout(new javax.swing.BoxLayout(cpuPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
+        jPanel6.setOpaque(false);
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel7.setOpaque(false);
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
 
         cpuBet2.setText("No Bet");
@@ -186,6 +200,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuPanel2.add(jPanel6);
 
+        cpuDicePanel3.setOpaque(false);
         cpuDicePanel3.setLayout(new javax.swing.BoxLayout(cpuDicePanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         cpuDie21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
@@ -212,8 +227,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuContainer.add(cpuPanel2, java.awt.BorderLayout.NORTH);
 
+        cpuPanel3.setOpaque(false);
         cpuPanel3.setLayout(new javax.swing.BoxLayout(cpuPanel3, javax.swing.BoxLayout.X_AXIS));
 
+        cpuDicePanel2.setOpaque(false);
         cpuDicePanel2.setLayout(new javax.swing.BoxLayout(cpuDicePanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         cpuDie31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
@@ -238,12 +255,14 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuPanel3.add(cpuDicePanel2);
 
+        jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/maccus.png"))); // NOI18N
         jLabel1.setAlignmentX(0.5F);
         jPanel2.add(jLabel1);
 
+        jPanel3.setOpaque(false);
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
 
         cpuBet3.setText("No Bet");
@@ -260,8 +279,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuContainer.add(cpuPanel3, java.awt.BorderLayout.EAST);
 
+        parrotPanel.setOpaque(false);
         parrotPanel.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel11.setOpaque(false);
         jPanel11.setLayout(new javax.swing.OverlayLayout(jPanel11));
 
         parrotTalk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -285,8 +306,9 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuContainer.add(parrotPanel, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(cpuContainer);
+        jPanel12.add(cpuContainer);
 
+        playerDicePanel.setOpaque(false);
         playerDicePanel.setLayout(new javax.swing.BoxLayout(playerDicePanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         playerBet.setText("No Bet");
@@ -294,6 +316,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         playerBet.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         playerDicePanel.add(playerBet);
 
+        jPanel1.setOpaque(false);
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         die1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/d2.png"))); // NOI18N
@@ -318,11 +341,13 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         playerDicePanel.add(jPanel1);
 
-        getContentPane().add(playerDicePanel);
+        jPanel12.add(playerDicePanel);
 
         playerControlPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        playerControlPanel.setOpaque(false);
         playerControlPanel.setLayout(new javax.swing.BoxLayout(playerControlPanel, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel8.setOpaque(false);
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
 
         betSpinner.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -336,6 +361,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
             }
         });
         jPanel8.add(betSpinner);
+
+        jPanel9.setOpaque(false);
 
         buttonGroup1.add(radio2);
         radio2.setText("Two's");
@@ -361,6 +388,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel8.add(jPanel9);
 
         playerControlPanel.add(jPanel8);
+
+        jPanel10.setOpaque(false);
 
         lieButton.setText("Call Lie");
         lieButton.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -392,7 +421,17 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         playerControlPanel.add(jPanel10);
 
-        getContentPane().add(playerControlPanel);
+        jPanel12.add(playerControlPanel);
+
+        getContentPane().add(jPanel12);
+
+        jPanel13.setLayout(null);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg.png"))); // NOI18N
+        jPanel13.add(jLabel4);
+        jLabel4.setBounds(0, 0, 3500, 1080);
+
+        getContentPane().add(jPanel13);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -412,6 +451,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         
         betSpinner.getComponent(0).setPreferredSize(new Dimension(40,40));
         betSpinner.getComponent(1).setPreferredSize(new Dimension(40,40)); 
+        
         
 
         rollDice();
@@ -717,6 +757,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         String output="<html><body>SQUAWK!<br>";
 
         output+=text;
+        if(state.isEndState())
+            output+="<br>Someone has only one die!";
         output+="<br>SQUAWK!";
         
         output += "</body></html>";
@@ -824,9 +866,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
