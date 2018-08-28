@@ -108,7 +108,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         newRoundButton = new javax.swing.JButton();
         betButton = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
@@ -426,11 +425,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         getContentPane().add(jPanel12);
 
         jPanel13.setLayout(null);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg.png"))); // NOI18N
-        jPanel13.add(jLabel4);
-        jLabel4.setBounds(0, 0, 3500, 1080);
-
         getContentPane().add(jPanel13);
 
         pack();
@@ -458,7 +452,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     }
     
     public void updateBetLimits(int count, int value){
-        if(value == 6)
+        if(value == 6 || state.isEndState())
             count++;
         if (state.isEndState()){
             if (count>state.totalDice*6)
@@ -866,7 +860,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
