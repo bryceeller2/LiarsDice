@@ -43,7 +43,9 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel12 = new javax.swing.JPanel();
+        jDialog1 = new javax.swing.JDialog();
+        Body = new javax.swing.JLabel();
+        gamePanel = new javax.swing.JPanel();
         cpuContainer = new javax.swing.JPanel();
         cpuPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -107,7 +109,19 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         lieButton = new javax.swing.JButton();
         newRoundButton = new javax.swing.JButton();
         betButton = new javax.swing.JButton();
-        jPanel13 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        backgroundPanel = new javax.swing.JPanel();
+
+        jDialog1.setMinimumSize(new java.awt.Dimension(900, 700));
+        jDialog1.setPreferredSize(new java.awt.Dimension(900, 700));
+        jDialog1.getContentPane().setLayout(new javax.swing.BoxLayout(jDialog1.getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        Body.setFont(new java.awt.Font("Sitka Subheading", 0, 18)); // NOI18N
+        Body.setText("<html><body><div style='text-align: center;'> <b>Object of the Game</b><br>  Be the last person with dice!<br><br> <b>How to Play</b><br>  Each player starts with 5 dice under their cup, 20 dice total. Each turn a player bets how many of a given die value are under all the cups cumulatively. Bets continue until one player calls another player a liar. Then all the dice are displayed. If the better was lying they lose a die. If the better was telling the truth, the person who called them a liar loses a die. When a player has no dice remaining they are out of the game.<br><br> <b>How to Bet</b><br>  On your turn, you will make a bet as to how many of a given die value are under all the cups cumulatively. You will choose a QUANTITY and a VALUE of dice to bet. The QUANTITY must be higher or equal to the previous bet. If the QUANTITY is equal to the previous bet, the VALUE must be higher. You cannot bet on how many dice are showing “one dot” because those dice are wild, they can count towards any VALUE. <br><br> <b>Example</b><br>  If the player before you bets 5 4’s, that means they think there are AT LEAST five total dice showing four dots or one dot. If you disagree you can call them a liar. If you think they are telling the truth, you must make a bet. You can bet the same QUANTITY with a higher VALUE: 5 5’s or 5 6’s. You can also bet a higher QUANTITY with any VALUE: 6 2’s, 6 3’s, or 6 4’s. <br><br> <b>WHEN A PLAYER HAS ONLY ONE DIE</b><br>  If any player has one die left, the game changes. Players no longer bet on a given die VALUE, they are now betting on the sum of all the dots showing on each players dice. Bets must be higher than the previous bet. Ones are no longer wild, they just count as one. If a player loses their only remaining die, they are out of the game and the betting goes back to normal. <br><br> </html></body> ");
+        Body.setAlignmentX(1.0F);
+        Body.setAlignmentY(0.0F);
+        Body.setMaximumSize(new java.awt.Dimension(2147483647, 1045));
+        jDialog1.getContentPane().add(Body);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
@@ -115,8 +129,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1280, 1000));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        jPanel12.setOpaque(false);
-        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.Y_AXIS));
+        gamePanel.setOpaque(false);
+        gamePanel.setLayout(new javax.swing.BoxLayout(gamePanel, javax.swing.BoxLayout.Y_AXIS));
 
         cpuContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         cpuContainer.setOpaque(false);
@@ -305,7 +319,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         cpuContainer.add(parrotPanel, java.awt.BorderLayout.CENTER);
 
-        jPanel12.add(cpuContainer);
+        gamePanel.add(cpuContainer);
 
         playerDicePanel.setOpaque(false);
         playerDicePanel.setLayout(new javax.swing.BoxLayout(playerDicePanel, javax.swing.BoxLayout.PAGE_AXIS));
@@ -340,7 +354,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         playerDicePanel.add(jPanel1);
 
-        jPanel12.add(playerDicePanel);
+        gamePanel.add(playerDicePanel);
 
         playerControlPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         playerControlPanel.setOpaque(false);
@@ -418,14 +432,25 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         });
         jPanel10.add(betButton);
 
+        jButton2.setBackground(new java.awt.Color(0, 204, 255));
+        jButton2.setText("Help!");
+        jButton2.setMaximumSize(new java.awt.Dimension(77, 23));
+        jButton2.setPreferredSize(new java.awt.Dimension(77, 50));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton2);
+
         playerControlPanel.add(jPanel10);
 
-        jPanel12.add(playerControlPanel);
+        gamePanel.add(playerControlPanel);
 
-        getContentPane().add(jPanel12);
+        getContentPane().add(gamePanel);
 
-        jPanel13.setLayout(null);
-        getContentPane().add(jPanel13);
+        backgroundPanel.setLayout(null);
+        getContentPane().add(backgroundPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -443,11 +468,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         state.getPlayers().get(3).setCupImage(cpuCup3);
         newRoundButton.setVisible(false);
         
+        jDialog1.setVisible(false);
+        
+        
         betSpinner.getComponent(0).setPreferredSize(new Dimension(40,40));
         betSpinner.getComponent(1).setPreferredSize(new Dimension(40,40)); 
-        
-        
-
         rollDice();
     }
     
@@ -818,8 +843,14 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         disableRadioButtons();
     }//GEN-LAST:event_betSpinnerStateChanged
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jDialog1.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Body;
+    private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton betButton;
     private javax.swing.JSpinner betSpinner;
     private javax.swing.JLabel bubble;
@@ -857,14 +888,15 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel die3;
     private javax.swing.JLabel die4;
     private javax.swing.JLabel die5;
+    private javax.swing.JPanel gamePanel;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
