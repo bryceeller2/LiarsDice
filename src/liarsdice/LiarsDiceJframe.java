@@ -109,6 +109,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         betButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         backgroundPanel = new javax.swing.JPanel();
+        Background = new javax.swing.JLabel();
 
         jDialog1.setTitle("Liar's Dice Help");
         jDialog1.setMinimumSize(new java.awt.Dimension(900, 700));
@@ -128,6 +129,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1280, 1000));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
+        gamePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(172, 203, 136), 5));
         gamePanel.setOpaque(false);
         gamePanel.setLayout(new javax.swing.BoxLayout(gamePanel, javax.swing.BoxLayout.Y_AXIS));
 
@@ -141,7 +143,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel4.setOpaque(false);
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/angler.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/angler2.png"))); // NOI18N
         jLabel2.setAlignmentX(0.5F);
         jPanel4.add(jLabel2);
 
@@ -206,7 +208,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         jPanel6.add(jPanel7);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jones.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jones2.png"))); // NOI18N
         jLabel3.setAlignmentX(0.5F);
         jPanel6.add(jLabel3);
 
@@ -270,7 +272,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/maccus.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hammer.png"))); // NOI18N
         jLabel1.setAlignmentX(0.5F);
         jPanel2.add(jLabel1);
 
@@ -439,6 +441,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         getContentPane().add(gamePanel);
 
         backgroundPanel.setLayout(null);
+
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg.png"))); // NOI18N
+        Background.setText("jLabel4");
+        backgroundPanel.add(Background);
+        Background.setBounds(0, 0, 3538, 1080);
+
         getContentPane().add(backgroundPanel);
 
         pack();
@@ -838,6 +846,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
     private javax.swing.JLabel Body;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton betButton;
