@@ -167,7 +167,7 @@ public class Player {
         
         //Otherwise check to see if this is an early bet
         if (betCount<totalDice/4){
-            myCount=(totalDice/4)+(zeroonetwo);
+            myCount=(totalDice/4)+(gen.nextInt(2));
             if (gen.nextInt(5)!=0)
                 myValue=mostValue();
             else
@@ -198,24 +198,19 @@ public class Player {
             return new int[]{betCount+1, commonValue};
         }
         
-        //Else bet the minimum but sometimes bluff
-        if (betValue>=6){
-            myCount=betCount+1;
-            myValue=2;
-        }
-        else{
-            myCount=betCount;
-            myValue=betValue+1;
-        }
+        //Else bet the number you have most of
         
-        //Bet the number you have most of
-        if (gen.nextInt(4) < 3){
-            System.out.println("betting the number he has the most of");
-            myValue=mostValue();
-            myCount=2;
-            while(myCount<betCount || (myCount == betCount && myValue<=betValue))
-                myCount++;
+        myValue=mostValue();
+        if (getCountOfDiceValue(myValue) < 2){
+            System.out.println("Default betting with the crowd");
+            myValue = state.betHistory.getMostCommonValue();
         }
+        else
+            System.out.println("betting the number he has the most of");
+        myCount=2;
+        while(myCount<betCount || (myCount == betCount && myValue<=betValue))
+            myCount++;
+
         
         System.out.println("defaultBet");
         

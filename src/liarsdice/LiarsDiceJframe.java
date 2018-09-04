@@ -49,10 +49,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuContainer = new javax.swing.JPanel();
         cpuPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        cpuBet1 = new javax.swing.JLabel();
         cpuCup1 = new javax.swing.JLabel();
+        cpuPic1 = new javax.swing.JLabel();
+        cpuBetPanel1 = new javax.swing.JPanel();
+        cpuBet1 = new javax.swing.JLabel();
+        cpuBubble1 = new javax.swing.JLabel();
         cpuDicePanel1 = new javax.swing.JPanel();
         cpuDie11 = new javax.swing.JLabel();
         cpuDie12 = new javax.swing.JLabel();
@@ -61,10 +62,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuDie15 = new javax.swing.JLabel();
         cpuPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
+        cpuBetPanel2 = new javax.swing.JPanel();
         cpuBet2 = new javax.swing.JLabel();
-        cpuCup2 = new javax.swing.JLabel();
+        cpuBubble2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        cpuCup2 = new javax.swing.JLabel();
         cpuDicePanel3 = new javax.swing.JPanel();
         cpuDie21 = new javax.swing.JLabel();
         cpuDie22 = new javax.swing.JLabel();
@@ -79,10 +81,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuDie34 = new javax.swing.JLabel();
         cpuDie35 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        cpuBet3 = new javax.swing.JLabel();
         cpuCup3 = new javax.swing.JLabel();
+        cpuPic3 = new javax.swing.JLabel();
+        cpuBetPanel3 = new javax.swing.JPanel();
+        cpuBet3 = new javax.swing.JLabel();
+        cpuBubble3 = new javax.swing.JLabel();
         parrotPanel = new javax.swing.JPanel();
         parrotTalk = new javax.swing.JLabel();
         parrotImage = new javax.swing.JLabel();
@@ -109,7 +112,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         betButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         backgroundPanel = new javax.swing.JPanel();
-        Background = new javax.swing.JLabel();
 
         jDialog1.setTitle("Liar's Dice Help");
         jDialog1.setMinimumSize(new java.awt.Dimension(900, 700));
@@ -143,21 +145,28 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel4.setOpaque(false);
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/angler2.png"))); // NOI18N
-        jLabel2.setAlignmentX(0.5F);
-        jPanel4.add(jLabel2);
+        cpuCup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
+        cpuCup1.setAlignmentX(0.5F);
+        jPanel4.add(cpuCup1);
 
-        jPanel5.setOpaque(false);
-        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
+        cpuPic1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/angler2.png"))); // NOI18N
+        cpuPic1.setAlignmentX(0.5F);
+        jPanel4.add(cpuPic1);
 
+        cpuBetPanel1.setOpaque(false);
+        cpuBetPanel1.setLayout(null);
+
+        cpuBet1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cpuBet1.setText("No Bet");
         cpuBet1.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
-        jPanel5.add(cpuBet1);
+        cpuBetPanel1.add(cpuBet1);
+        cpuBet1.setBounds(0, 50, 150, 90);
 
-        cpuCup1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
-        jPanel5.add(cpuCup1);
+        cpuBubble1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/speechbubbleup.png"))); // NOI18N
+        cpuBetPanel1.add(cpuBubble1);
+        cpuBubble1.setBounds(0, 0, 150, 150);
 
-        jPanel4.add(jPanel5);
+        jPanel4.add(cpuBetPanel1);
 
         cpuPanel1.add(jPanel4);
 
@@ -194,23 +203,29 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel7.setOpaque(false);
-        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.PAGE_AXIS));
+        cpuBetPanel2.setMaximumSize(new java.awt.Dimension(200, 200));
+        cpuBetPanel2.setOpaque(false);
+        cpuBetPanel2.setLayout(null);
 
+        cpuBet2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cpuBet2.setText("No Bet");
-        cpuBet2.setAlignmentX(0.5F);
         cpuBet2.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
-        jPanel7.add(cpuBet2);
+        cpuBetPanel2.add(cpuBet2);
+        cpuBet2.setBounds(0, 50, 190, 70);
 
-        cpuCup2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
-        cpuCup2.setAlignmentX(0.5F);
-        jPanel7.add(cpuCup2);
+        cpuBubble2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/speechbubbletr.png"))); // NOI18N
+        cpuBetPanel2.add(cpuBubble2);
+        cpuBubble2.setBounds(0, 0, 200, 151);
 
-        jPanel6.add(jPanel7);
+        jPanel6.add(cpuBetPanel2);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jones2.png"))); // NOI18N
         jLabel3.setAlignmentX(0.5F);
         jPanel6.add(jLabel3);
+
+        cpuCup2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
+        cpuCup2.setAlignmentX(0.5F);
+        jPanel6.add(cpuCup2);
 
         cpuPanel2.add(jPanel6);
 
@@ -272,22 +287,29 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hammer.png"))); // NOI18N
-        jLabel1.setAlignmentX(0.5F);
-        jPanel2.add(jLabel1);
+        cpuCup3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
+        cpuCup3.setAlignmentX(0.5F);
+        jPanel2.add(cpuCup3);
 
-        jPanel3.setOpaque(false);
-        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.LINE_AXIS));
+        cpuPic3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hammer.png"))); // NOI18N
+        cpuPic3.setAlignmentX(0.5F);
+        jPanel2.add(cpuPic3);
 
+        cpuBetPanel3.setOpaque(false);
+        cpuBetPanel3.setLayout(null);
+
+        cpuBet3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cpuBet3.setText("No Bet");
         cpuBet3.setAlignmentX(0.5F);
         cpuBet3.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
-        jPanel3.add(cpuBet3);
+        cpuBetPanel3.add(cpuBet3);
+        cpuBet3.setBounds(0, 60, 150, 70);
 
-        cpuCup3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/5cup.png"))); // NOI18N
-        jPanel3.add(cpuCup3);
+        cpuBubble3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/speechbubbleup.png"))); // NOI18N
+        cpuBetPanel3.add(cpuBubble3);
+        cpuBubble3.setBounds(0, 0, 150, 150);
 
-        jPanel2.add(jPanel3);
+        jPanel2.add(cpuBetPanel3);
 
         cpuPanel3.add(jPanel2);
 
@@ -441,12 +463,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         getContentPane().add(gamePanel);
 
         backgroundPanel.setLayout(null);
-
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg.png"))); // NOI18N
-        Background.setText("jLabel4");
-        backgroundPanel.add(Background);
-        Background.setBounds(0, 0, 3538, 1080);
-
         getContentPane().add(backgroundPanel);
 
         pack();
@@ -546,18 +562,25 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private void resetBetText(){
         javax.swing.JLabel[] betLabels = new javax.swing.JLabel[]{playerBet, cpuBet1, cpuBet2, cpuBet3};
         for (int i=0; i<4; i++){
-            betLabels[i].setText("No Bet");
+            if (state.getPlayers().get(i).getActive())
+                betLabels[i].setText("No Bet");
+            else{
+                if (i==2)
+                    betLabels[i].setText("<html><body>No one escapes<br>Davy Jones' Locker!</html></body>");
+                else
+                    betLabels[i].setText("<html><body>I'll get you next time,<br>Landlubber</html></body>");
+            }
         }
     }
     
     private void updateBetText(int player, int betCount, int betValue){
         javax.swing.JLabel[] betLabels = new javax.swing.JLabel[]{playerBet, cpuBet1, cpuBet2, cpuBet3};
         if (betValue<0)
-            betLabels[player].setText("Player calls Lie!");
+            betLabels[player].setText("You are a Liar!");
         else if (betValue==0)
-            betLabels[player].setText("Player bets at least " +betCount +" dots.");
+            betLabels[player].setText("I bet at least " +betCount +" dots.");
         else
-            betLabels[player].setText("Player bets " +betCount +" " +betValue +"'s");
+            betLabels[player].setText("I bet " +betCount +" " +betValue +"'s");
     }
     
     private void makeBet(int player, int betCount, int betValue){
@@ -664,8 +687,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         output += "SQUAWK!<br>";
         
-        if (callie>0)
-            output += "Player " +Integer.toString(callie) +" is ";
+        if (callie==1)
+            output += "Angler is ";
+        else if (callie==2)
+            output += "Davy Jones is ";
+        else if (callie == 3)
+            output += "Hammer is ";
         else
             output += "You are ";
         
@@ -846,7 +873,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Background;
     private javax.swing.JLabel Body;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton betButton;
@@ -855,6 +881,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel cpuBet1;
     private javax.swing.JLabel cpuBet2;
     private javax.swing.JLabel cpuBet3;
+    private javax.swing.JPanel cpuBetPanel1;
+    private javax.swing.JPanel cpuBetPanel2;
+    private javax.swing.JPanel cpuBetPanel3;
+    private javax.swing.JLabel cpuBubble1;
+    private javax.swing.JLabel cpuBubble2;
+    private javax.swing.JLabel cpuBubble3;
     private javax.swing.JPanel cpuContainer;
     private javax.swing.JLabel cpuCup1;
     private javax.swing.JLabel cpuCup2;
@@ -880,6 +912,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JPanel cpuPanel1;
     private javax.swing.JPanel cpuPanel2;
     private javax.swing.JPanel cpuPanel3;
+    private javax.swing.JLabel cpuPic1;
+    private javax.swing.JLabel cpuPic3;
     private javax.swing.JLabel die1;
     private javax.swing.JLabel die2;
     private javax.swing.JLabel die3;
@@ -888,17 +922,12 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JPanel gamePanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JButton lieButton;
