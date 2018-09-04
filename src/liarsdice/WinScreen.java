@@ -41,7 +41,7 @@ public class WinScreen extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(670, 430, 533, 177);
 
-        jButton1.setText("Play Again?");
+        jButton1.setText("Play Again");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

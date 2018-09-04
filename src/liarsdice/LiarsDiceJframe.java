@@ -157,7 +157,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuBetPanel1.setLayout(null);
 
         cpuBet1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cpuBet1.setText("No Bet");
+        cpuBet1.setText("Grr, make your bet");
         cpuBet1.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         cpuBetPanel1.add(cpuBet1);
         cpuBet1.setBounds(0, 50, 150, 90);
@@ -208,7 +208,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuBetPanel2.setLayout(null);
 
         cpuBet2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cpuBet2.setText("No Bet");
+        cpuBet2.setText("Place a bet, lad");
         cpuBet2.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         cpuBetPanel2.add(cpuBet2);
         cpuBet2.setBounds(0, 50, 190, 70);
@@ -299,7 +299,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuBetPanel3.setLayout(null);
 
         cpuBet3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cpuBet3.setText("No Bet");
+        cpuBet3.setText("We're waitin for ya");
         cpuBet3.setAlignmentX(0.5F);
         cpuBet3.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 6, 6, 6));
         cpuBetPanel3.add(cpuBet3);
@@ -319,11 +319,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         parrotPanel.setLayout(null);
 
         parrotTalk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        parrotTalk.setText("<html><body>SQUAK!<br>Welcome to Liars Dice!<br>Your turn to place a bet!<br>SQUAWK!</body></html>");
+        parrotTalk.setText("<html><body><div style='text-align: center;'>SQUAK!<br>Welcome to Liars Dice!<br>Your turn to place a bet!<br>SQUAWK!</body></html>");
         parrotTalk.setAlignmentY(0.0F);
         parrotTalk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         parrotPanel.add(parrotTalk);
-        parrotTalk.setBounds(180, 240, 450, 56);
+        parrotTalk.setBounds(170, 240, 450, 56);
 
         parrotImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         parrotImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parrot2.png"))); // NOI18N
@@ -562,13 +562,19 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private void resetBetText(){
         javax.swing.JLabel[] betLabels = new javax.swing.JLabel[]{playerBet, cpuBet1, cpuBet2, cpuBet3};
         for (int i=0; i<4; i++){
-            if (state.getPlayers().get(i).getActive())
-                betLabels[i].setText("No Bet");
+            if (state.getPlayers().get(i).getActive()){
+                if (i==1)
+                    betLabels[i].setText("<html><body><div style='text-align: center;'>You're gonna earn<br>your sea legs today</html></body>");
+                else if (i==2)
+                    betLabels[i].setText("<html><body><div style='text-align: center;'>Prepare to spend an<br>eternity on my ship!</html></body>");
+                else if (i==3)
+                    betLabels[i].setText("<html><body><div style='text-align: center;'>You think you stand a chance?</html></body>");
+            }
             else{
                 if (i==2)
-                    betLabels[i].setText("<html><body>No one escapes<br>Davy Jones' Locker!</html></body>");
+                    betLabels[i].setText("<html><body><div style='text-align: center;'>No one escapes<br>Davy Jones' Locker!</html></body>");
                 else
-                    betLabels[i].setText("<html><body>I'll get you next time,<br>Landlubber</html></body>");
+                    betLabels[i].setText("<html><body><div style='text-align: center;'>I'll get you next time,<br>Landlubber</html></body>");
             }
         }
     }
@@ -653,17 +659,20 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuDicePanel3.setVisible(false);
     }
     
-    private void highlightDice(boolean enough){
+    private void highlightDice(boolean enough, int callie){
         
         if (state.isEndState())
             return;
         
         javax.swing.ImageIcon dieX, a, b, c, d, e, f;
-        if (enough){
+        if (enough && callie==0 || !enough && callie==3){
             dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); a = new javax.swing.ImageIcon(getClass().getResource("/d1g.png")); b = new javax.swing.ImageIcon(getClass().getResource("/d2g.png")); c = new javax.swing.ImageIcon(getClass().getResource("/d3g.png")); d = new javax.swing.ImageIcon(getClass().getResource("/d4g.png")); e = new javax.swing.ImageIcon(getClass().getResource("/d5g.png")); f = new javax.swing.ImageIcon(getClass().getResource("/d6g.png"));
         }
-        else{
+        else if (!enough && callie==0 || enough && callie==3){
             dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); a = new javax.swing.ImageIcon(getClass().getResource("/d1h.png")); b = new javax.swing.ImageIcon(getClass().getResource("/d2h.png")); c = new javax.swing.ImageIcon(getClass().getResource("/d3h.png")); d = new javax.swing.ImageIcon(getClass().getResource("/d4h.png")); e = new javax.swing.ImageIcon(getClass().getResource("/d5h.png")); f = new javax.swing.ImageIcon(getClass().getResource("/d6h.png"));
+        }
+        else{
+            dieX = new javax.swing.ImageIcon(getClass().getResource("/d0.png")); a = new javax.swing.ImageIcon(getClass().getResource("/d1y.png")); b = new javax.swing.ImageIcon(getClass().getResource("/d2y.png")); c = new javax.swing.ImageIcon(getClass().getResource("/d3y.png")); d = new javax.swing.ImageIcon(getClass().getResource("/d4y.png")); e = new javax.swing.ImageIcon(getClass().getResource("/d5y.png")); f = new javax.swing.ImageIcon(getClass().getResource("/d6y.png"));
         }
         javax.swing.ImageIcon[] highlightedImages = new javax.swing.ImageIcon[]{dieX,a,b,c,d,e,f};
                 
@@ -683,7 +692,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         
         String callerName="";
         String callieName="";
-        String output="<html><body>";
+        String output="<html><body><div style='text-align: center;'>";
 
         output += "SQUAWK!<br>";
         
@@ -741,7 +750,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         Player callie = state.getPlayers().get(x);
         
         boolean enoughDice = state.checkBet(betCount, betValue);
-        highlightDice(enoughDice);
+        highlightDice(enoughDice, x);
         showRoundResults(state.isEndState(), enoughDice, state.getRealCount(betValue), x, state.getNextPlayer());
         
         for(Player p : state.getPlayers()){
