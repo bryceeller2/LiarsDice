@@ -84,10 +84,8 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuBet3 = new javax.swing.JLabel();
         cpuCup3 = new javax.swing.JLabel();
         parrotPanel = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
         parrotTalk = new javax.swing.JLabel();
-        bubble = new javax.swing.JLabel();
-        parrot = new javax.swing.JLabel();
+        parrotImage = new javax.swing.JLabel();
         playerDicePanel = new javax.swing.JPanel();
         playerBet = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -112,6 +110,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         backgroundPanel = new javax.swing.JPanel();
 
+        jDialog1.setTitle("Liar's Dice Help");
         jDialog1.setMinimumSize(new java.awt.Dimension(900, 700));
         jDialog1.setPreferredSize(new java.awt.Dimension(900, 700));
         jDialog1.getContentPane().setLayout(new javax.swing.BoxLayout(jDialog1.getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
@@ -293,29 +292,20 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         cpuContainer.add(cpuPanel3, java.awt.BorderLayout.EAST);
 
         parrotPanel.setOpaque(false);
-        parrotPanel.setLayout(new java.awt.GridLayout(1, 2));
-
-        jPanel11.setOpaque(false);
-        jPanel11.setLayout(new javax.swing.OverlayLayout(jPanel11));
+        parrotPanel.setLayout(null);
 
         parrotTalk.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         parrotTalk.setText("<html><body>SQUAK!<br>Welcome to Liars Dice!<br>Your turn to place a bet!<br>SQUAWK!</body></html>");
-        parrotTalk.setAlignmentX(0.5F);
+        parrotTalk.setAlignmentY(0.0F);
         parrotTalk.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(parrotTalk);
+        parrotPanel.add(parrotTalk);
+        parrotTalk.setBounds(180, 240, 450, 56);
 
-        bubble.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bubble.setIcon(new javax.swing.ImageIcon(getClass().getResource("/speechbubbletr.png"))); // NOI18N
-        bubble.setAlignmentX(0.5F);
-        jPanel11.add(bubble);
-
-        parrotPanel.add(jPanel11);
-
-        parrot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        parrot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parrot.png"))); // NOI18N
-        parrot.setAlignmentX(0.5F);
-        parrot.setAlignmentY(1.0F);
-        parrotPanel.add(parrot);
+        parrotImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        parrotImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/parrot2.png"))); // NOI18N
+        parrotImage.setAlignmentX(0.5F);
+        parrotPanel.add(parrotImage);
+        parrotImage.setBounds(300, 110, 300, 227);
 
         cpuContainer.add(parrotPanel, java.awt.BorderLayout.CENTER);
 
@@ -432,7 +422,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         });
         jPanel10.add(betButton);
 
-        jButton2.setBackground(new java.awt.Color(0, 204, 255));
         jButton2.setText("Help!");
         jButton2.setMaximumSize(new java.awt.Dimension(77, 23));
         jButton2.setPreferredSize(new java.awt.Dimension(77, 50));
@@ -853,7 +842,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton betButton;
     private javax.swing.JSpinner betSpinner;
-    private javax.swing.JLabel bubble;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel cpuBet1;
     private javax.swing.JLabel cpuBet2;
@@ -896,7 +884,6 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -907,7 +894,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JButton lieButton;
     private javax.swing.JButton newRoundButton;
-    private javax.swing.JLabel parrot;
+    private javax.swing.JLabel parrotImage;
     private javax.swing.JPanel parrotPanel;
     private javax.swing.JLabel parrotTalk;
     private javax.swing.JLabel playerBet;

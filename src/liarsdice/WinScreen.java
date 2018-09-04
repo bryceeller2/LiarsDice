@@ -27,22 +27,18 @@ public class WinScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
-        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
-
-        jPanel1.setOpaque(false);
-        jPanel1.setLayout(null);
+        setResizable(false);
+        getContentPane().setLayout(null);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/winText.png"))); // NOI18N
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(670, 530, 533, 177);
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(670, 430, 533, 177);
 
         jButton1.setText("Play Again?");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -50,13 +46,12 @@ public class WinScreen extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(860, 700, 130, 40);
-
-        getContentPane().add(jPanel1);
+        getContentPane().add(jButton1);
+        jButton1.setBounds(870, 600, 130, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/winScreen.png"))); // NOI18N
         getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -109,6 +104,5 @@ public class WinScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,26 +27,15 @@ public class LoseScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
         getContentPane().setLayout(null);
-
-        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
-        jPanel1.setLayout(null);
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loseText.png"))); // NOI18N
-        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 410, 533, 177);
 
         jButton1.setText("Play Again?");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -54,18 +43,21 @@ public class LoseScreen extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(270, 600, 130, 40);
+        getContentPane().add(jButton1);
+        jButton1.setBounds(220, 580, 130, 40);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1280, 720);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loseText.png"))); // NOI18N
+        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(30, 410, 533, 177);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/loseScreen.png"))); // NOI18N
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setAlignmentY(0.0F);
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, -10, 1280, 720);
+        jLabel1.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,6 +110,5 @@ public class LoseScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
