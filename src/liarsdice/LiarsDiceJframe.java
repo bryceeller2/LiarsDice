@@ -112,10 +112,10 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         betButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         backgroundPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         jDialog1.setTitle("Liar's Dice Help");
         jDialog1.setMinimumSize(new java.awt.Dimension(900, 700));
-        jDialog1.setPreferredSize(new java.awt.Dimension(900, 700));
         jDialog1.getContentPane().setLayout(new javax.swing.BoxLayout(jDialog1.getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
 
         Body.setFont(new java.awt.Font("Sitka Subheading", 0, 18)); // NOI18N
@@ -131,7 +131,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1280, 1000));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        gamePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(172, 203, 136), 5));
+        gamePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 51, 0), 5));
         gamePanel.setOpaque(false);
         gamePanel.setLayout(new javax.swing.BoxLayout(gamePanel, javax.swing.BoxLayout.Y_AXIS));
 
@@ -417,6 +417,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         playerControlPanel.add(jPanel8);
 
         jPanel10.setOpaque(false);
+        jPanel10.setPreferredSize(new java.awt.Dimension(417, 50));
 
         lieButton.setText("Call Lie");
         lieButton.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -463,6 +464,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
         getContentPane().add(gamePanel);
 
         backgroundPanel.setLayout(null);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg2.png"))); // NOI18N
+        backgroundPanel.add(jLabel1);
+        jLabel1.setBounds(0, 0, 3500, 1080);
+
         getContentPane().add(backgroundPanel);
 
         pack();
@@ -931,6 +937,7 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
     private javax.swing.JPanel gamePanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
