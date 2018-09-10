@@ -127,11 +127,11 @@ public class LiarsDiceJframe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Liar's Dice");
-        setMinimumSize(new java.awt.Dimension(1280, 1000));
         setPreferredSize(new java.awt.Dimension(1280, 1000));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        gamePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 51, 0), 5));
+        gamePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 0), 5));
+        gamePanel.setMinimumSize(new java.awt.Dimension(0, 0));
         gamePanel.setOpaque(false);
         gamePanel.setLayout(new javax.swing.BoxLayout(gamePanel, javax.swing.BoxLayout.Y_AXIS));
 
